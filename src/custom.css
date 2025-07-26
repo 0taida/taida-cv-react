@@ -426,6 +426,12 @@ body[dir="rtl"] .animate-slide-in-sidebar-custom {
   animation: slideInSidebarRTL 0.5s ease 0.2s forwards;
 }
 
+/* RTL sidebar animation class */
+.animate-slide-in-sidebar-rtl-custom {
+  transform: translateX(100%);
+  animation: slideInSidebarRTL 0.5s ease 0.2s forwards;
+}
+
 /* Ensure RTL sidebar animation works correctly */
 body[dir="rtl"] .sidebar-rtl {
   transform: translateX(100%);
@@ -571,34 +577,81 @@ body[dir="rtl"] .theme-language-toggles {
   transform: none !important;
 }
 
-/* Mobile responsive adjustments */
+/* Mobile responsive adjustments - exact HTML match */
 @media (max-width: 768px) {
+  /* Disable all animations on mobile */
+  .animate-fade-in-custom,
   .animate-slide-in-sidebar-custom,
-  .animate-slide-in-sidebar-rtl-custom {
+  .animate-slide-in-sidebar-rtl-custom,
+  .animate-subtle-pulse-custom,
+  .animate-fade-in-up-custom,
+  .animate-fade-in-delayed,
+  .animate-fade-in-more-delayed,
+  .animate-fade-in-most-delayed,
+  .animate-section-1,
+  .animate-section-2,
+  .animate-section-3,
+  .animate-section-4,
+  .animate-section-5 {
     animation: none !important;
     transform: none !important;
+    opacity: 1 !important;
   }
   
-  .section-hover-effect:hover {
+  /* Disable hover effects on mobile */
+  .section-hover-effect:hover,
+  .section:hover {
     transform: none !important;
+    box-shadow: inherit !important;
+    border: inherit !important;
   }
   
-  body.light-theme .section-hover-effect:hover {
+  body.light-theme .section-hover-effect:hover,
+  body.light-theme .section:hover {
     transform: none !important;
+    box-shadow: inherit !important;
+    border: inherit !important;
   }
   
-  .skill-chip-hover:hover {
+  .skill-chip-hover:hover,
+  .skill-chip:hover {
     transform: none !important;
+    box-shadow: inherit !important;
   }
   
-  body.light-theme .skill-chip-hover:hover {
+  body.light-theme .skill-chip-hover:hover,
+  body.light-theme .skill-chip:hover {
     transform: none !important;
+    background: inherit !important;
   }
 
-  /* Mobile theme toggle adjustments */
+  .project-link-button:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+
+  body.light-theme .project-link-button:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+
+  /* Mobile layout - body and main container */
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Mobile theme toggle adjustments - exact HTML match */
   .theme-language-toggles {
+    position: absolute;
     top: 5px;
     right: 5px;
+    z-index: 2000;
     gap: 5px;
   }
   
@@ -621,6 +674,75 @@ body[dir="rtl"] .theme-language-toggles {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  /* Mobile sidebar adjustments - exact HTML match */
+  .sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.5rem !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Mobile sidebar sections */
+  .sidebar-section-gradient {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  /* Mobile main content adjustments */
+  .main-content {
+    padding: 1rem !important;
+    margin-top: 5px !important;
+    width: 100%;
+  }
+
+  /* Mobile section adjustments */
+  .section {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Mobile language progress bar adjustments */
+  .language-progress-bar {
+    height: 8px !important;
+  }
+
+  .language-progress-fill {
+    height: 8px !important;
+  }
+
+  /* Mobile project header adjustments */
+  .project-header {
+    flex-wrap: wrap;
+  }
+
+  /* Reset margins for project link buttons on mobile */
+  .project-header > .project-link-button {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* RTL specific mobile adjustments */
+  body[dir="rtl"] .project-header > .project-link-button {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Mobile profile image - exact HTML match */
+  .profile-img {
+    width: 100px !important;
+    height: 100px !important;
+    margin: 0.75rem auto !important;
   }
 }
 
@@ -747,20 +869,6 @@ body[dir="rtl"] .section:hover .section-title::after {
   .skills-container .section {
     min-width: auto;
   }
-
-  /* Mobile section adjustments */
-  .section {
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .section:hover {
-    transform: none !important;
-  }
-
-  body.light-theme .section:hover {
-    transform: none !important;
-  }
 }
 
 /* Staggered animation delays for sections */
@@ -792,4 +900,174 @@ body[dir="rtl"] .section:hover .section-title::after {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.5s ease 1s forwards;
+}/* 
+Comprehensive Mobile Responsive Design - Exact HTML Match */
+@media (max-width: 768px) {
+  /* Disable all animations on mobile - exact HTML match */
+  .animate-fade-in-custom,
+  .animate-slide-in-sidebar-custom,
+  .animate-slide-in-sidebar-rtl-custom,
+  .animate-subtle-pulse-custom,
+  .animate-fade-in-up-custom,
+  .animate-fade-in-delayed,
+  .animate-fade-in-more-delayed,
+  .animate-fade-in-most-delayed,
+  .animate-section-1,
+  .animate-section-2,
+  .animate-section-3,
+  .animate-section-4,
+  .animate-section-5 {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  
+  /* Disable hover effects on mobile */
+  .section-hover-effect:hover,
+  .section:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+    border: inherit !important;
+  }
+  
+  body.light-theme .section-hover-effect:hover,
+  body.light-theme .section:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+    border: inherit !important;
+  }
+  
+  .skill-chip-hover:hover,
+  .skill-chip:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+  
+  body.light-theme .skill-chip-hover:hover,
+  body.light-theme .skill-chip:hover {
+    transform: none !important;
+    background: inherit !important;
+  }
+
+  .project-link-button:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+
+  body.light-theme .project-link-button:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+
+  /* Mobile layout - body and main container */
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+    flex-direction: column;
+  }
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Mobile theme toggle adjustments - exact HTML match */
+  .theme-language-toggles {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2000;
+    gap: 5px;
+  }
+  
+  .theme-toggle-button {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    padding: 0.3rem;
+  }
+
+  /* Mobile contact info adjustments */
+  .contact-info ul li, 
+  .soft-skills ul li {
+    font-size: 0.85rem;
+  }
+  
+  .contact-info ul li a, 
+  .contact-info ul li span {
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Mobile sidebar adjustments - exact HTML match */
+  .sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.5rem !important;
+    margin: 0 !important;
+    margin-bottom: 1rem !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Mobile sidebar sections */
+  .sidebar-section-gradient {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  /* Mobile main content adjustments */
+  .main-content {
+    padding: 1rem !important;
+    margin-top: 5px !important;
+    width: 100%;
+  }
+
+  /* Mobile section adjustments */
+  .section {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Mobile profile image - exact HTML match */
+  .profile-img {
+    width: 100px !important;
+    height: 100px !important;
+    margin: 0.75rem auto !important;
+  }
+
+  /* Mobile language progress bar adjustments */
+  .language-progress-bar {
+    height: 8px !important;
+  }
+
+  .language-progress-fill {
+    height: 8px !important;
+  }
+
+  /* Mobile project header adjustments */
+  .project-header {
+    flex-wrap: wrap;
+  }
+
+  /* Reset margins for project link buttons on mobile */
+  .project-header > .project-link-button {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* RTL specific mobile adjustments */
+  body[dir="rtl"] .project-header > .project-link-button {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

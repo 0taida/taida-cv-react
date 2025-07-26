@@ -33,7 +33,7 @@ function App() {
   }, [theme, i18n.language])
 
   return (
-    <div className="min-h-screen cv-body-gradient text-gray-200 flex flex-wrap font-poppins animate-fade-in-custom">
+    <div className="min-h-screen cv-body-gradient text-gray-200 flex flex-wrap font-poppins animate-fade-in-custom md:flex-col md:overflow-x-hidden">
       <ThemeToggle
         theme={theme}
         onThemeToggle={toggleTheme}
@@ -41,7 +41,9 @@ function App() {
       />
 
       {/* Sidebar */}
-      <div className="w-[300px] p-2 flex flex-col shadow-inner animate-slide-in-sidebar-custom relative rounded-2xl md:w-full md:max-w-full md:p-2 md:mb-4 md:border-none md:shadow-none md:transform-none md:animate-none">
+      <div className={`w-[300px] p-2 flex flex-col shadow-inner relative rounded-2xl md:w-full md:max-w-full md:p-2 md:mb-4 md:border-none md:shadow-none md:transform-none md:animate-none md:rounded-none ${
+        i18n.language === 'ar' ? 'animate-slide-in-sidebar-rtl-custom' : 'animate-slide-in-sidebar-custom'
+      }`}>
         <ProfileImage />
         <ContactInfo />
         <SoftSkills />
