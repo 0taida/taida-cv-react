@@ -1,0 +1,795 @@
+/* Custom CSS for HTML-specific styles that Tailwind cannot replicate exactly */
+
+/* Complex gradients that Tailwind cannot replicate exactly */
+.cv-body-gradient {
+  background: linear-gradient(to bottom, #2a4373, #112240);
+}
+
+.section-gradient {
+  background: linear-gradient(145deg, #112240, #1a2a47);
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-section-gradient {
+  background: linear-gradient(145deg, #112240, #1a2a47);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Section title gradient text */
+.section-title-gradient {
+  background: linear-gradient(45deg, #00aaff, #36c6da);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom keyframe animations with exact timing from HTML */
+@keyframes fadeIn {
+  to { 
+    opacity: 1; 
+  }
+}
+
+@keyframes slideInSidebar {
+  to { 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideInSidebarRTL {
+  to { 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 170, 255, 0.2);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation classes */
+.animate-fade-in-custom {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-slide-in-sidebar-custom {
+  transform: translateX(-100%);
+  animation: slideInSidebar 0.5s ease 0.2s forwards;
+}
+
+.animate-slide-in-sidebar-rtl-custom {
+  transform: translateX(100%);
+  animation: slideInSidebarRTL 0.5s ease 0.2s forwards;
+}
+
+.animate-subtle-pulse-custom {
+  animation: subtlePulse 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up-custom {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease 0.4s forwards;
+}
+
+.animate-fade-in-delayed {
+  opacity: 0;
+  animation: fadeIn 0.5s ease 0.6s forwards;
+}
+
+.animate-fade-in-more-delayed {
+  opacity: 0;
+  animation: fadeIn 0.5s ease 0.8s forwards;
+}
+
+.animate-fade-in-most-delayed {
+  opacity: 0;
+  animation: fadeIn 0.5s ease 1s forwards;
+}
+
+/* Section hover effects with exact transform values */
+.section-hover-effect {
+  transition: all 0.5s ease;
+}
+
+.section-hover-effect:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Section title underline animation */
+.section-title-underline {
+  position: relative;
+}
+
+.section-title-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: #00aaff;
+  transition: all 0.5s ease;
+}
+
+.section-title-underline:hover::after {
+  width: 100%;
+}
+
+/* Skill chip styles - exact HTML match */
+.skill-chip {
+  background: rgba(0, 170, 255, 0.15);
+  color: #00aaff;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+}
+
+/* Skill chip hover effects */
+.skill-chip-hover {
+  transition: all 0.5s ease;
+}
+
+.skill-chip-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Project link button styles */
+.project-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: rgba(0, 170, 255, 0.2);
+  color: #00aaff;
+  border-radius: 50%;
+  text-decoration: none;
+  border: 1px solid rgba(0, 170, 255, 0.3);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.project-link-button i {
+  font-size: 0.9rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.project-link-button:hover {
+  background-color: rgba(0, 170, 255, 0.35);
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 170, 255, 0.25);
+}
+
+/* Project divider */
+.project-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0, 170, 255, 0.3), transparent);
+  margin: 2rem 0;
+}
+
+/* Tech badge styles */
+.tech-badge {
+  background: rgba(0, 170, 255, 0.15);
+  color: #00aaff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(0, 170, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.tech-badge i {
+  font-size: 0.9rem;
+}
+
+/* Soft skills bullet points - exact HTML match */
+.soft-skills ul {
+  list-style: none;
+  line-height: 2;
+  padding-left: 0;
+}
+
+.soft-skills-bullet {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  padding-left: 15px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.soft-skills-bullet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #00aaff;
+  border-radius: 50%;
+  box-shadow: inset 0 0 4px rgba(0, 170, 255, 0.5);
+}
+
+/* Language progress bars */
+.language-progress-bar {
+  background: #112240;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+  position: relative;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  height: 10px;
+  width: 100%;
+}
+
+.language-progress-fill {
+  display: block;
+  height: 100%;
+  background: #00aaff;
+  box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.language-progress-label {
+  position: absolute;
+  right: 5px;
+  top: -18px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* Theme-specific overrides for light mode */
+body.light-theme {
+  background: #ffffff !important;
+  color: #333333 !important;
+}
+
+body.light-theme .cv-body-gradient {
+  background: #ffffff !important;
+}
+
+body.light-theme .section-gradient,
+body.light-theme .sidebar-section-gradient {
+  background: #ffffff !important;
+  border: 1px solid #dddddd !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  color: #333333 !important;
+}
+
+body.light-theme .section-hover-effect:hover {
+  transform: none !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #cccccc !important;
+}
+
+body.light-theme .section-title-gradient {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+  color: #000000 !important;
+}
+
+body.light-theme .section-title-underline::after {
+  background: #000000 !important;
+}
+
+body.light-theme .skill-chip {
+  background: #f5f5f5 !important;
+  color: #333333 !important;
+  border: 1px solid #dddddd !important;
+}
+
+body.light-theme .skill-chip-hover {
+  background: #f5f5f5 !important;
+  color: #333333 !important;
+  border: 1px solid #dddddd !important;
+}
+
+body.light-theme .skill-chip-hover:hover {
+  background: #eeeeee !important;
+  transform: none !important;
+}
+
+body.light-theme .language-progress-bar {
+  background: #f5f5f5 !important;
+  border: 1px solid #dddddd !important;
+}
+
+body.light-theme .language-progress-fill {
+  background: #555555 !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .soft-skills-bullet {
+  color: #333333 !important;
+}
+
+body.light-theme .soft-skills-bullet::before {
+  background: #555555 !important;
+  box-shadow: none !important;
+}
+
+/* Soft skills header styling */
+.soft-skills h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #00aaff;
+}
+
+body.light-theme .soft-skills h3 {
+  color: #000000 !important;
+}
+
+/* RTL support for soft skills header */
+body[dir="rtl"] .soft-skills h3 {
+  text-align: right;
+}
+
+body[dir="rtl"] .soft-skills {
+  text-align: right;
+}
+
+body.light-theme .project-link-button {
+  background-color: #f0f0f0 !important;
+  color: #333333 !important;
+  border-color: #cccccc !important;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+body.light-theme .project-link-button:hover {
+  background-color: #e0e0e0 !important;
+  color: #000000 !important;
+  border-color: #bbbbbb !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15) !important;
+}
+
+body.light-theme .project-divider {
+  background: linear-gradient(to right, transparent, #dddddd, transparent) !important;
+}
+
+body.light-theme .tech-badge {
+  background: rgba(137, 142, 158, 0.1) !important;
+  color: #000000 !important;
+  border-color: rgba(30, 64, 175, 0.2) !important;
+}
+
+/* Project header styles */
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Light theme contact info styles */
+body.light-theme .contact-info ul li {
+  color: #333333 !important;
+}
+
+body.light-theme .contact-info h3 {
+  color: #000000 !important;
+}
+
+body.light-theme .contact-info ul li i {
+  color: #555555 !important;
+}
+
+body.light-theme .contact-info ul li a {
+  color: #555555 !important;
+}
+
+body.light-theme .contact-info ul li a:hover {
+  color: #000000 !important;
+}
+
+/* RTL-specific layout adjustments */
+body[dir="rtl"] .animate-slide-in-sidebar-custom {
+  transform: translateX(100%);
+  animation: slideInSidebarRTL 0.5s ease 0.2s forwards;
+}
+
+/* Ensure RTL sidebar animation works correctly */
+body[dir="rtl"] .sidebar-rtl {
+  transform: translateX(100%);
+  animation: slideInSidebarRTL 0.5s ease 0.2s forwards;
+}
+
+body[dir="rtl"] .soft-skills-bullet {
+  padding-left: 0;
+  padding-right: 15px;
+  text-align: right;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+body[dir="rtl"] .soft-skills-bullet::before {
+  left: auto;
+  right: 0;
+}
+
+body[dir="rtl"] .language-progress-label {
+  right: auto;
+  left: 5px;
+}
+
+body[dir="rtl"] .section-title-underline::after {
+  left: auto;
+  right: 0;
+}
+
+/* Contact info specific styling to match HTML version exactly */
+.contact-info ul {
+  list-style: none;
+  line-height: 2;
+}
+
+.contact-info ul li {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-info ul li i {
+  color: #00aaff;
+  min-width: 20px;
+  text-align: center;
+}
+
+.contact-info ul li a {
+  color: #00aaff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-info ul li a:hover {
+  color: #ffffff;
+}
+
+/* Contact info RTL adjustments */
+body[dir="rtl"] .contact-info {
+  text-align: right;
+  direction: rtl;
+}
+
+body[dir="rtl"] .contact-info ul li {
+  flex-direction: row;
+  text-align: right;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+body[dir="rtl"] .contact-info ul li i {
+  order: -1;
+  margin-left: 10px;
+  margin-right: 0;
+  min-width: 20px;
+  text-align: center;
+}
+
+body[dir="rtl"] .contact-info h3 {
+  text-align: right;
+}
+
+/* Theme toggle buttons - exact HTML styling */
+.theme-language-toggles {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  left: auto !important;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+  direction: ltr !important;
+  transform: none !important;
+}
+
+.theme-toggle-button {
+  background: rgba(0, 170, 255, 0.15);
+  color: #00aaff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease !important;
+  animation: none !important;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  direction: ltr;
+}
+
+.theme-toggle-button:hover {
+  background: rgba(0, 170, 255, 0.3);
+}
+
+.theme-toggle-button:active {
+  transition: none;
+}
+
+/* Light theme toggle button styles */
+body.light-theme .theme-toggle-button {
+  background: #f5f5f5;
+  color: #333333;
+  border: 1px solid #dddddd;
+}
+
+body.light-theme .theme-toggle-button:hover {
+  background: #eeeeee;
+  transform: none;
+}
+
+/* RTL support - ensure buttons stay in top-right */
+body[dir="rtl"] .theme-language-toggles {
+  right: 10px !important;
+  left: auto !important;
+  direction: ltr !important;
+  transform: none !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .animate-slide-in-sidebar-custom,
+  .animate-slide-in-sidebar-rtl-custom {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  .section-hover-effect:hover {
+    transform: none !important;
+  }
+  
+  body.light-theme .section-hover-effect:hover {
+    transform: none !important;
+  }
+  
+  .skill-chip-hover:hover {
+    transform: none !important;
+  }
+  
+  body.light-theme .skill-chip-hover:hover {
+    transform: none !important;
+  }
+
+  /* Mobile theme toggle adjustments */
+  .theme-language-toggles {
+    top: 5px;
+    right: 5px;
+    gap: 5px;
+  }
+  
+  .theme-toggle-button {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    padding: 0.3rem;
+  }
+
+  /* Mobile contact info adjustments */
+  .contact-info ul li, 
+  .soft-skills ul li {
+    font-size: 0.85rem;
+  }
+  
+  .contact-info ul li a, 
+  .contact-info ul li span {
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* Main content section styling - exact HTML match */
+.section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #112240, #1a2a47);
+  border-radius: 15px;
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease 0.2s forwards;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.5s ease;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #00aaff, #36c6da);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  transition: all 0.5s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: #00aaff;
+  transition: all 0.5s ease;
+}
+
+.section:hover .section-title::after {
+  width: 100%;
+}
+
+/* Light theme section overrides */
+body.light-theme .section {
+  background: #ffffff;
+  backdrop-filter: none;
+  border: 1px solid #dddddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  color: #333333;
+}
+
+body.light-theme .section:hover {
+  transform: none;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cccccc;
+}
+
+body.light-theme .section-title {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+  color: #000000;
+}
+
+body.light-theme .section-title::after {
+  background: #000000;
+}
+
+/* Light theme text color overrides for sections */
+body.light-theme .section p,
+body.light-theme .section li,
+body.light-theme .section span {
+  color: #333333 !important;
+}
+
+body.light-theme .section h3 {
+  color: #000000 !important;
+}
+
+/* RTL support for section titles */
+body[dir="rtl"] .section-title::after {
+  left: auto;
+  right: 0;
+}
+
+body[dir="rtl"] .section:hover .section-title::after {
+  width: 100%;
+}
+
+/* Skills container styling - exact HTML match */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+.skills-container .section {
+  flex: 1;
+  min-width: 300px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease 0.4s forwards;
+}
+
+@media (max-width: 768px) {
+  .skills-container {
+    flex-direction: column;
+  }
+
+  .skills-container .section {
+    min-width: auto;
+  }
+
+  /* Mobile section adjustments */
+  .section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .section:hover {
+    transform: none !important;
+  }
+
+  body.light-theme .section:hover {
+    transform: none !important;
+  }
+}
+
+/* Staggered animation delays for sections */
+.animate-section-1 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease 0.2s forwards;
+}
+
+.animate-section-2 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease 0.4s forwards;
+}
+
+.animate-section-3 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease 0.6s forwards;
+}
+
+.animate-section-4 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease 0.8s forwards;
+}
+
+.animate-section-5 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease 1s forwards;
+}

@@ -1,229 +1,102 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import { useTranslation } from 'react-i18next'
+import './i18n'
+import './custom.css'
+
+// Components
+import ThemeToggle from './components/ThemeToggle'
+import ProfileImage from './components/ProfileImage'
+import ContactInfo from './components/ContactInfo'
+import SoftSkills from './components/SoftSkills'
+import Languages from './components/Languages'
+import ProfessionalSummary from './components/ProfessionalSummary'
+import TechnicalSkills from './components/TechnicalSkills'
+import Projects from './components/Projects'
 
 function App() {
   const [theme, setTheme] = useState('dark')
-  const [language, setLanguage] = useState('en')
-
-  const translations = {
-    en: {
-      contact: "Contact",
-      location: "Sana'a, Yemen",
-      "soft-skills": "Soft Skills",
-      "analytical-skills": "Analytical Skills",
-      teamwork: "Teamwork",
-      "problem-solving": "Problem Solving",
-      communication: "Communication",
-      adaptability: "Adaptability",
-      "time-management": "Time Management",
-      leadership: "Leadership",
-      creativity: "Creativity",
-      "attention-to-detail": "Attention to Detail",
-      "critical-thinking": "Critical Thinking",
-      languages: "Languages",
-      english: "English",
-      arabic: "Arabic",
-      "professional-summary": "Professional Summary",
-      "technical-skills": "Technical Skills",
-      experience: "Experience",
-      education: "Education",
-      projects: "Projects"
-    },
-    ar: {
-      contact: "التواصل",
-      location: "صنعاء، اليمن",
-      "soft-skills": "المهارات الشخصية",
-      "analytical-skills": "المهارات التحليلية",
-      teamwork: "العمل الجماعي",
-      "problem-solving": "حل المشكلات",
-      communication: "التواصل",
-      adaptability: "القدرة على التكيف",
-      "time-management": "إدارة الوقت",
-      leadership: "القيادة",
-      creativity: "الإبداع",
-      "attention-to-detail": "الانتباه للتفاصيل",
-      "critical-thinking": "التفكير النقدي",
-      languages: "اللغات",
-      english: "الإنجليزية",
-      arabic: "العربية",
-      "professional-summary": "الملخص المهني",
-      "technical-skills": "المهارات التقنية",
-      experience: "الخبرة",
-      education: "التعليم",
-      projects: "المشاريع"
-    }
-  }
-
-  const t = (key) => translations[language][key] || key
+  const { t, i18n } = useTranslation()
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'ar' : 'en')
+    const newLang = i18n.language === 'en' ? 'ar' : 'en'
+    i18n.changeLanguage(newLang)
   }
 
   useEffect(() => {
+    // Use body class approach for theme management
     document.body.className = theme === 'light' ? 'light-theme' : ''
-    document.body.dir = language === 'ar' ? 'rtl' : 'ltr'
-  }, [theme, language])
-
-  const skills = [
-    "JavaScript", "React", "Node.js", "Python", "HTML/CSS", "Git",
-    "MongoDB", "Express.js", "REST APIs", "Responsive Design"
-  ]
-
-  const softSkills = [
-    "analytical-skills", "teamwork", "problem-solving", "communication",
-    "adaptability", "time-management", "leadership", "creativity",
-    "attention-to-detail", "critical-thinking"
-  ]
+    document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr'
+  }, [theme, i18n.language])
 
   return (
-    <div className="app">
-      <div className="theme-language-toggles">
-        <button onClick={toggleTheme}>
-          <i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
-        </button>
-        <button onClick={toggleLanguage}>
-          <i className="fas fa-globe"></i>
-        </button>
+    <div className="min-h-screen cv-body-gradient text-gray-200 flex flex-wrap font-poppins animate-fade-in-custom">
+      <ThemeToggle
+        theme={theme}
+        onThemeToggle={toggleTheme}
+        onLanguageToggle={toggleLanguage}
+      />
+
+      {/* Sidebar */}
+      <div className="w-[300px] p-2 flex flex-col shadow-inner animate-slide-in-sidebar-custom relative rounded-2xl md:w-full md:max-w-full md:p-2 md:mb-4 md:border-none md:shadow-none md:transform-none md:animate-none">
+        <ProfileImage />
+        <ContactInfo />
+        <SoftSkills />
+        <Languages />
       </div>
 
-      <div className="sidebar">
-        <img src="/face.png" alt="Profile Image" className="profile-img" />
+      {/* Main Content */}
+      <div className="flex-1 p-8 mt-6 md:p-4 md:w-full md:mt-1">
+        <ProfessionalSummary />
 
-        <div className="sidebar-section">
-          <div className="contact-info">
-            <h3>{t('contact')}</h3>
-            <ul>
-              <li>
-                <i className="fas fa-envelope"></i>
-                <a href="mailto:taida.dream@gmail.com">taida.dream@gmail.com</a>
-              </li>
-              <li>
-                <i className="fas fa-phone"></i>
-                <a href="tel:+967774126583" dir="ltr">+967774126583</a>
-              </li>
-              <li>
-                <i className="fab fa-github"></i>
-                <a href="https://github.com/0taida" target="_blank">Github</a>
-              </li>
-              <li>
-                <i className="fas fa-map-marker-alt"></i>
-                <span>{t('location')}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="sidebar-section">
-          <div className="soft-skills">
-            <h3>{t('soft-skills')}</h3>
-            <ul>
-              {softSkills.map((skill, index) => (
-                <li key={index}>{t(skill)}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="sidebar-section">
-          <div className="languages">
-            <h3>{t('languages')}</h3>
-            <ul>
-              <li>
-                <span>{t('english')}</span>
-                <div className="language-bar">
-                  <span style={{ width: '90%' }} data-label="90%"></span>
-                </div>
-              </li>
-              <li>
-                <span>{t('arabic')}</span>
-                <div className="language-bar">
-                  <span style={{ width: '100%' }} data-label="100%"></span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div className="main-content">
-        <section className="section">
-          <h2 className="section-title">
-            <i className="fas fa-user-tie"></i>
-            <span>{t('professional-summary')}</span>
-          </h2>
-          <p>
-            {language === 'en'
-              ? "Passionate Full Stack Developer with expertise in modern web technologies. Experienced in building responsive, user-friendly applications using React, Node.js, and various databases. Strong problem-solving skills and a commitment to writing clean, maintainable code."
-              : "مطور ويب متكامل شغوف بخبرة في تقنيات الويب الحديثة. خبرة في بناء تطبيقات متجاوبة وسهلة الاستخدام باستخدام React و Node.js وقواعد البيانات المختلفة. مهارات قوية في حل المشكلات والتزام بكتابة كود نظيف وقابل للصيانة."
-            }
-          </p>
-        </section>
-
-        <section className="section">
-          <h2 className="section-title">
-            <i className="fas fa-code"></i>
-            <span>{t('technical-skills')}</span>
-          </h2>
-          <div className="skills">
-            <ul>
-              {skills.map((skill, index) => (
-                <li key={index} className="skill-chip">{skill}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="section">
+        {/* Experience Section */}
+        <section className="section animate-section-2">
           <h2 className="section-title">
             <i className="fas fa-briefcase"></i>
             <span>{t('experience')}</span>
           </h2>
-          <div className="experience-item">
-            <h3>Full Stack Developer</h3>
-            <p className="company">Freelance • 2022 - Present</p>
-            <ul>
-              <li>Developed responsive web applications using React and Node.js</li>
-              <li>Implemented RESTful APIs and database integration</li>
-              <li>Collaborated with clients to deliver custom solutions</li>
+          <div className="mb-6">
+            <h3 className="text-blue-400 mb-2">{t('software-developer')}</h3>
+            <span className="text-slate-400">2023 - {t('present')}</span>
+            <p className="text-slate-400 mb-2">{t('doing')}</p>
+            <ul className="list-none pl-0 space-y-1">
+              <li className="text-slate-300">• {t('collaborated-platform')}</li>
+              <li className="text-slate-300">• {t('enhanced-ui')}</li>
+              <li className="text-slate-300">• {t('participated-development')}</li>
             </ul>
           </div>
         </section>
 
-        <section className="section">
+        <TechnicalSkills />
+
+        <Projects />
+
+        {/* Education Section */}
+        <section className="section animate-section-5">
           <h2 className="section-title">
             <i className="fas fa-graduation-cap"></i>
             <span>{t('education')}</span>
           </h2>
-          <div className="education-item">
-            <h3>Computer Science</h3>
-            <p>University of Science and Technology • 2020-2024</p>
+          <div>
+            <h3 className="text-blue-400 mb-2">{t('university-name')}</h3>
+            <p className="text-slate-300">{t('name-of-university')}</p>
+            <span className="text-slate-400">{t('graduated')}</span>
+            <p className="text-slate-300 mt-2">{t('focused-software')}</p>
           </div>
         </section>
 
-        <section className="section">
+        {/* Interests Section */}
+        <section className="section animate-section-5">
           <h2 className="section-title">
-            <i className="fas fa-project-diagram"></i>
-            <span>{t('projects')}</span>
+            <i className="fas fa-star"></i>
+            <span>{t('interests')}</span>
           </h2>
-          <div className="project-item">
-            <div className="project-header">
-              <h3>Personal CV Website</h3>
-              <a href="https://github.com/0taida" className="project-link-button" target="_blank">
-                <i className="fab fa-github"></i>
-              </a>
-            </div>
-            <p>A responsive, bilingual CV website with theme switching capabilities.</p>
-            <div className="tech-badges">
-              <span className="tech-badge">HTML</span>
-              <span className="tech-badge">CSS</span>
-              <span className="tech-badge">JavaScript</span>
-            </div>
-          </div>
+          <p className="text-slate-300 leading-relaxed">
+            {t('enthusiastic-exploring')}
+          </p>
         </section>
       </div>
     </div>
