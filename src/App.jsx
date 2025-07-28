@@ -39,11 +39,11 @@ function App() {
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme')
     const storedLanguage = localStorage.getItem('language')
-    
+
     if (storedTheme) {
       setTheme(storedTheme)
     }
-    
+
     if (storedLanguage) {
       i18n.changeLanguage(storedLanguage)
     }
@@ -65,9 +65,8 @@ function App() {
       />
 
       {/* Sidebar */}
-      <div className={`sidebar ${
-        i18n.language === 'ar' ? 'animate-slide-in-sidebar-rtl-custom' : 'animate-slide-in-sidebar-custom'
-      }`}>
+      <div className={`sidebar ${i18n.language === 'ar' ? 'animate-slide-in-sidebar-rtl-custom' : 'animate-slide-in-sidebar-custom'
+        }`}>
         <ProfileImage />
         <ContactInfo contactData={cvData.contact} />
         <SoftSkills skills={cvData.softSkills} />

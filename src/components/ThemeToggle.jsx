@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import PrintButton from './PrintButton';
 
 const ThemeToggle = ({ theme, onThemeToggle, onLanguageToggle }) => {
   const { i18n } = useTranslation();
@@ -17,6 +18,7 @@ const ThemeToggle = ({ theme, onThemeToggle, onLanguageToggle }) => {
       >
         <i className="fas fa-globe"></i>
       </button>
+      <PrintButton />
     </div>
   );
 };

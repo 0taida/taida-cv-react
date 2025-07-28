@@ -713,6 +713,87 @@ body.light-theme .theme-toggle-button:hover {
   transform: none;
 }
 
+/* Print button styling */
+.print-button {
+  background: rgba(0, 170, 255, 0.15);
+  color: #00aaff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease !important;
+  animation: none !important;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  direction: ltr;
+}
+
+.print-button:hover {
+  background: rgba(0, 170, 255, 0.3);
+}
+
+.print-button:active {
+  transition: none;
+}
+
+/* Light theme print button styles */
+body.light-theme .print-button {
+  background: #f5f5f5;
+  color: #333333;
+  border: 1px solid #dddddd;
+}
+
+body.light-theme .print-button:hover {
+  background: #eeeeee;
+  transform: none;
+}
+
+/* Print button generating state */
+.print-button.generating {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.print-button.generating:hover {
+  background: rgba(0, 170, 255, 0.15) !important;
+}
+
+body.light-theme .print-button.generating:hover {
+  background: #f5f5f5 !important;
+}
+
+/* PDF generation optimization */
+.pdf-generating {
+  background: white !important;
+  color: black !important;
+}
+
+.pdf-generating * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.pdf-generating .theme-language-toggles {
+  display: none !important;
+}
+
+.pdf-generating .sidebar {
+  transform: none !important;
+  animation: none !important;
+}
+
+.pdf-generating .section,
+.pdf-generating .sidebar-section {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
 /* RTL support - ensure buttons stay in top-right */
 body[dir="rtl"] .theme-language-toggles {
   right: 10px !important;
@@ -911,7 +992,8 @@ body[dir="rtl"] .section:hover .section-title::after {
     z-index: 2000 !important;
     gap: 5px !important;
   }
-  .theme-toggle-button {
+  .theme-toggle-button,
+  .print-button {
     width: 28px !important;
     height: 28px !important;
     font-size: 0.8rem !important;
@@ -947,4 +1029,401 @@ body[dir="rtl"] .section:hover .section-title::after {
   .skills-container .section {
     min-width: auto !important;
   }
+}
+
+/* Print-specific styles for PDF optimization */
+@media print {
+  /* Hide interactive elements during print */
+  .theme-language-toggles,
+  .print-button {
+    display: none !important;
+  }
+  
+  /* Optimize layout for print */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+  }
+  
+  .cv-body-gradient {
+    background: white !important;
+    color: black !important;
+    display: block !important;
+    min-height: auto !important;
+    flex-wrap: nowrap !important;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  
+  .sidebar {
+    width: 100% !important;
+    transform: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 10px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .main-content {
+    padding: 10px !important;
+    margin-top: 0 !important;
+  }
+  
+  .section,
+  .sidebar-section {
+    background: white !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    border-radius: 5px !important;
+    margin-bottom: 15px !important;
+    padding: 15px !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    page-break-inside: avoid;
+  }
+  
+  .section-title {
+    color: #000 !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    font-size: 16pt !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .section-title::after {
+    display: none !important;
+  }
+  
+  .profile-img {
+    width: 120px !important;
+    height: 120px !important;
+    margin: 10px auto !important;
+    border: 2px solid #333 !important;
+    box-shadow: none !important;
+  }
+  
+  .contact-info ul li,
+  .soft-skills ul li,
+  .languages ul li span {
+    color: #333 !important;
+    font-size: 11pt !important;
+  }
+  
+  .contact-info ul li i {
+    color: #333 !important;
+  }
+  
+  .contact-info ul li a {
+    color: #333 !important;
+    text-decoration: underline !important;
+  }
+  
+  .skill-chip {
+    background: #f0f0f0 !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  
+  .tech-badge {
+    background: #f0f0f0 !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+  }
+  
+  .project-link-button {
+    background: #f0f0f0 !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+  
+  .language-progress-bar {
+    background: #f0f0f0 !important;
+    border: 1px solid #ccc !important;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  
+  .language-progress-fill {
+    background: #666 !important;
+    box-shadow: none !important;
+  }
+  
+  .soft-skills-bullet::before {
+    background: #333 !important;
+    box-shadow: none !important;
+  }
+  
+  .project-divider {
+    background: #ddd !important;
+    margin: 15px 0 !important;
+  }
+  
+  /* Ensure proper page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+  
+  .page-break-after {
+    page-break-after: always;
+  }
+  
+  .page-break-avoid {
+    page-break-inside: avoid;
+  }
+  
+  /* Hide animations and transitions in print */
+  * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* PDF Generation Styles - Applied when printing-pdf class is active */
+body.printing-pdf,
+.printing-pdf {
+  background: white !important;
+  color: #333 !important;
+  font-size: 12pt !important;
+  line-height: 1.4 !important;
+}
+
+.printing-pdf.cv-body-gradient {
+  background: white !important;
+  color: #333 !important;
+  display: block !important;
+  min-height: auto !important;
+  flex-wrap: nowrap !important;
+  opacity: 1 !important;
+  animation: none !important;
+  padding: 20px !important;
+  max-width: 210mm !important;
+  margin: 0 auto !important;
+}
+
+.printing-pdf .sidebar {
+  width: 100% !important;
+  max-width: 300px !important;
+  float: left !important;
+  margin-right: 30px !important;
+  margin-bottom: 20px !important;
+  transform: none !important;
+  animation: none !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+  background: #f8f9fa !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.printing-pdf .main-content {
+  overflow: hidden !important;
+  padding: 20px !important;
+  margin-top: 0 !important;
+  background: white !important;
+}
+
+.printing-pdf .section,
+.printing-pdf .sidebar-section {
+  background: white !important;
+  border: 1px solid #dee2e6 !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+  padding: 15px !important;
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  page-break-inside: avoid !important;
+}
+
+.printing-pdf .sidebar-section {
+  background: transparent !important;
+  border: none !important;
+  padding: 10px 0 !important;
+}
+
+.printing-pdf .section-title {
+  color: #007bff !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  font-size: 16pt !important;
+  margin-bottom: 12px !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #007bff !important;
+  padding-bottom: 5px !important;
+}
+
+.printing-pdf .section-title::after {
+  display: none !important;
+}
+
+.printing-pdf .profile-img {
+  width: 120px !important;
+  height: 120px !important;
+  margin: 10px auto 20px auto !important;
+  border: 3px solid #007bff !important;
+  box-shadow: none !important;
+  display: block !important;
+}
+
+.printing-pdf .contact-info h3,
+.printing-pdf .soft-skills h3,
+.printing-pdf .languages h3 {
+  color: #007bff !important;
+  font-size: 14pt !important;
+  margin-bottom: 10px !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #007bff !important;
+  padding-bottom: 5px !important;
+}
+
+.printing-pdf .contact-info ul li,
+.printing-pdf .soft-skills ul li,
+.printing-pdf .languages ul li span {
+  color: #333 !important;
+  font-size: 11pt !important;
+}
+
+.printing-pdf .contact-info ul li i {
+  color: #007bff !important;
+}
+
+.printing-pdf .contact-info ul li a {
+  color: #333 !important;
+  text-decoration: none !important;
+}
+
+.printing-pdf .skill-chip {
+  background: #e9ecef !important;
+  color: #495057 !important;
+  border: 1px solid #dee2e6 !important;
+  opacity: 1 !important;
+  animation: none !important;
+  font-size: 10pt !important;
+  padding: 3px 8px !important;
+  margin: 2px !important;
+  display: inline-block !important;
+}
+
+.printing-pdf .tech-badge {
+  background: #e3f2fd !important;
+  color: #1976d2 !important;
+  border: 1px solid #bbdefb !important;
+  font-size: 9pt !important;
+  padding: 2px 6px !important;
+  margin: 2px !important;
+  display: inline-block !important;
+}
+
+.printing-pdf .project-link-button {
+  display: none !important;
+}
+
+.printing-pdf .language-progress-bar {
+  background: #e9ecef !important;
+  border: 1px solid #dee2e6 !important;
+  opacity: 1 !important;
+  animation: none !important;
+  height: 10px !important;
+}
+
+.printing-pdf .language-progress-fill {
+  background: #007bff !important;
+  box-shadow: none !important;
+}
+
+.printing-pdf .language-progress-label {
+  color: #666 !important;
+  font-size: 9pt !important;
+}
+
+.printing-pdf .soft-skills-bullet::before {
+  background: #007bff !important;
+  box-shadow: none !important;
+}
+
+.printing-pdf .project-divider {
+  background: #dee2e6 !important;
+  margin: 15px 0 !important;
+  height: 1px !important;
+}
+
+.printing-pdf .project-header h3 {
+  color: #007bff !important;
+  font-size: 12pt !important;
+  font-weight: 600 !important;
+}
+
+.printing-pdf .experience-date {
+  color: #666 !important;
+  font-size: 10pt !important;
+}
+
+/* Hide interactive elements during PDF generation */
+.printing-pdf .theme-language-toggles,
+.printing-pdf .print-button {
+  display: none !important;
+}
+
+/* Ensure proper text colors in PDF */
+.printing-pdf p,
+.printing-pdf li,
+.printing-pdf span:not(.skill-chip):not(.tech-badge) {
+  color: #333 !important;
+}
+
+.printing-pdf h1,
+.printing-pdf h2,
+.printing-pdf h3 {
+  color: #007bff !important;
+}
+
+/* Remove all animations and transitions during PDF generation */
+.printing-pdf * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Ensure proper layout for PDF */
+.printing-pdf .skills-container {
+  display: block !important;
+}
+
+.printing-pdf .skills-container .section {
+  margin-bottom: 15px !important;
+  width: 100% !important;
+}
+
+/* RTL support for PDF */
+body.printing-pdf[dir="rtl"] .sidebar {
+  float: right !important;
+  margin-right: 0 !important;
+  margin-left: 30px !important;
+}
+
+body.printing-pdf[dir="rtl"] .contact-info ul li,
+body.printing-pdf[dir="rtl"] .soft-skills ul li {
+  text-align: right !important;
+  flex-direction: row-reverse !important;
+}
+
+body.printing-pdf[dir="rtl"] .soft-skills-bullet {
+  padding-left: 0 !important;
+  padding-right: 15px !important;
+}
+
+body.printing-pdf[dir="rtl"] .soft-skills-bullet::before {
+  left: auto !important;
+  right: 0 !important;
 }

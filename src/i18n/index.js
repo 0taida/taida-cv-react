@@ -65,7 +65,9 @@ const resources = {
       computerScience: "Computer Science",
       university: "University of Science and Technology",
       personalCvWebsite: "Personal CV Website",
-      personalCvDescription: "A responsive, bilingual CV website with theme switching capabilities."
+      personalCvDescription: "A responsive, bilingual CV website with theme switching capabilities.",
+      "print-cv": "Print CV",
+      "pdf-error": "Failed to generate PDF. Please try again."
     }
   },
   ar: {
@@ -131,7 +133,9 @@ const resources = {
       computerScience: "علوم الحاسوب",
       university: "جامعة العلوم والتكنولوجيا",
       personalCvWebsite: "موقع السيرة الذاتية الشخصي",
-      personalCvDescription: "موقع سيرة ذاتية متجاوب وثنائي اللغة مع إمكانيات تبديل المظهر."
+      personalCvDescription: "موقع سيرة ذاتية متجاوب وثنائي اللغة مع إمكانيات تبديل المظهر.",
+      "print-cv": "طباعة السيرة الذاتية",
+      "pdf-error": "فشل في إنشاء ملف PDF. يرجى المحاولة مرة أخرى."
     }
   }
 };
