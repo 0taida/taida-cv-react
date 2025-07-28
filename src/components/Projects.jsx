@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
-const Projects = () => {
+const Projects = ({ projects }) => {
   const { t } = useTranslation();
 
-  const projects = [
+  // Default projects if not provided
+  const defaultProjects = [
     {
       title: 'rai-platform',
       description: 'rai-platform-desc',
@@ -61,6 +62,8 @@ const Projects = () => {
     }
   ];
 
+  const projectsList = projects || defaultProjects;
+
   return (
     <section className="section section-gradient section-hover-effect animate-section-4">
       <h2 className="section-title section-title-gradient section-title-underline">
@@ -68,10 +71,10 @@ const Projects = () => {
         <span>{t('projects')}</span>
       </h2>
 
-      {projects.map((project, index) => (
+      {projectsList.map((project, index) => (
         <div key={index}>
           <div>
-            <div className="project-header" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+            <div className="project-header">
               {project.link && (
                 <a 
                   href={project.link} 
@@ -82,7 +85,7 @@ const Projects = () => {
                   <i className={project.linkIcon}></i>
                 </a>
               )}
-              <h3 style={{ color: '#00aaff', margin: 0 }}>{t(project.title)}</h3>
+              <h3>{t(project.title)}</h3>
               {project.techBadges.map((tech, techIndex) => (
                 <span key={techIndex} className="tech-badge">
                   <i className={tech.icon}></i>
@@ -90,10 +93,10 @@ const Projects = () => {
                 </span>
               ))}
             </div>
-            <p style={{ color: '#94a3b8', marginBottom: '1rem' }}>{t(project.description)}</p>
+            <p>{t(project.description)}</p>
           </div>
           
-          {index < projects.length - 1 && (
+          {index < projectsList.length - 1 && (
             <div className="project-divider"></div>
           )}
         </div>

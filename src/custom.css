@@ -1,8 +1,19 @@
 /* Custom CSS for HTML-specific styles that Tailwind cannot replicate exactly */
 
+/* Font family class */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
 /* Complex gradients that Tailwind cannot replicate exactly */
 .cv-body-gradient {
   background: linear-gradient(to bottom, #2a4373, #112240);
+  color: #e0e0e0;
+  display: flex;
+  min-height: 100vh;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .section-gradient {
@@ -64,20 +75,20 @@
   }
 }
 
-/* Animation classes */
+/* Animation classes - Fixed timing to match HTML exactly */
 .animate-fade-in-custom {
   opacity: 0;
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.5s ease forwards; /* No delay - matches body animation */
 }
 
 .animate-slide-in-sidebar-custom {
   transform: translateX(-100%);
-  animation: slideInSidebar 0.5s ease 0.2s forwards;
+  animation: slideInSidebar 0.5s ease 0.2s forwards; /* 0.2s delay - matches sidebar */
 }
 
 .animate-slide-in-sidebar-rtl-custom {
   transform: translateX(100%);
-  animation: slideInSidebarRTL 0.5s ease 0.2s forwards;
+  animation: slideInSidebarRTL 0.5s ease 0.2s forwards; /* 0.2s delay - matches sidebar */
 }
 
 .animate-subtle-pulse-custom {
@@ -86,22 +97,22 @@
 
 .animate-fade-in-up-custom {
   opacity: 0;
-  animation: fadeInUp 0.5s ease 0.4s forwards;
+  animation: fadeInUp 0.5s ease 0.4s forwards; /* 0.4s delay - matches sidebar section headers */
 }
 
 .animate-fade-in-delayed {
   opacity: 0;
-  animation: fadeIn 0.5s ease 0.6s forwards;
+  animation: fadeIn 0.5s ease 0.6s forwards; /* 0.6s delay - matches contact info items */
 }
 
 .animate-fade-in-more-delayed {
   opacity: 0;
-  animation: fadeIn 0.5s ease 0.8s forwards;
+  animation: fadeIn 0.5s ease 0.8s forwards; /* 0.8s delay - matches skill chips */
 }
 
 .animate-fade-in-most-delayed {
   opacity: 0;
-  animation: fadeIn 0.5s ease 1s forwards;
+  animation: fadeIn 0.5s ease 1s forwards; /* 1s delay - matches language bars */
 }
 
 /* Section hover effects with exact transform values */
@@ -143,10 +154,12 @@
   border-radius: 25px;
   font-size: 0.8rem;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
   transition: all 0.5s ease;
+  animation: fadeIn 0.5s ease 0.8s forwards;
 }
 
-/* Skill chip hover effects */
+/* Skill chip hover effects - exact HTML match */
 .skill-chip-hover {
   transition: all 0.5s ease;
 }
@@ -154,6 +167,7 @@
 .skill-chip-hover:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease;
 }
 
 /* Project link button styles */
@@ -244,7 +258,7 @@
   box-shadow: inset 0 0 4px rgba(0, 170, 255, 0.5);
 }
 
-/* Language progress bars */
+/* Language progress bar styles - exact HTML match */
 .language-progress-bar {
   background: #112240;
   border-radius: 10px;
@@ -252,6 +266,8 @@
   margin: 0.5rem 0;
   position: relative;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeIn 0.5s ease 1s forwards;
   height: 10px;
   width: 100%;
 }
@@ -263,6 +279,15 @@
   box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
   border-radius: 8px;
   transition: width 0.3s ease;
+}
+
+.language-progress-fill::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 5px;
+  top: -18px;
+  font-size: 0.8rem;
+  color: #94a3b8;
 }
 
 .language-progress-label {
@@ -399,6 +424,84 @@ body.light-theme .tech-badge {
   flex-wrap: wrap;
 }
 
+.project-header h3 {
+  color: #00aaff;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+body.light-theme .project-header h3 {
+  color: #000000 !important;
+}
+
+/* Sidebar styling - exact HTML match */
+.sidebar {
+  width: 300px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 3px 0 10px rgba(0, 0, 0, 0.2);
+  transition: none;
+  transform: translateX(-100%);
+  position: relative;
+  border-radius: 15px;
+}
+
+/* Sidebar section styling - exact HTML match */
+.sidebar-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #112240, #1a2a47);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Light theme sidebar section overrides */
+body.light-theme .sidebar-section {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  border: 1px solid #dddddd !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  color: #333333 !important;
+}
+
+/* Main content styling - exact HTML match */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-top: 25px;
+}
+
+/* Profile image styling - exact HTML match */
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 2rem auto;
+  border: 2px solid #00aaff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+  display: block;
+}
+
+/* Experience date styling */
+.experience-date {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+body.light-theme .experience-date {
+  color: #333333 !important;
+}
+
 /* Light theme contact info styles */
 body.light-theme .contact-info ul li {
   color: #333333 !important;
@@ -440,7 +543,7 @@ body[dir="rtl"] .sidebar-rtl {
 
 body[dir="rtl"] .soft-skills-bullet {
   padding-left: 0;
-  padding-right: 15px;
+  padding-right: 20px;
   text-align: right;
   flex-direction: row-reverse;
   justify-content: flex-start;
@@ -457,12 +560,23 @@ body[dir="rtl"] .language-progress-label {
   left: 5px;
 }
 
+body[dir="rtl"] .language-progress-fill::after {
+  right: auto;
+  left: 5px;
+}
+
 body[dir="rtl"] .section-title-underline::after {
   left: auto;
   right: 0;
 }
 
 /* Contact info specific styling to match HTML version exactly */
+.contact-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #00aaff;
+}
+
 .contact-info ul {
   list-style: none;
   line-height: 2;
@@ -492,6 +606,36 @@ body[dir="rtl"] .section-title-underline::after {
   color: #ffffff;
 }
 
+/* Languages section styling */
+.languages h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #00aaff;
+}
+
+.languages ul {
+  list-style: none;
+  width: 100%;
+}
+
+.languages ul li {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.languages ul li span {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+body.light-theme .languages h3 {
+  color: #000000 !important;
+}
+
+body.light-theme .languages ul li span {
+  color: #333333 !important;
+}
+
 /* Contact info RTL adjustments */
 body[dir="rtl"] .contact-info {
   text-align: right;
@@ -499,7 +643,7 @@ body[dir="rtl"] .contact-info {
 }
 
 body[dir="rtl"] .contact-info ul li {
-  flex-direction: row;
+  flex-direction: row-reverse;
   text-align: right;
   gap: 10px;
   justify-content: flex-start;
@@ -575,175 +719,6 @@ body[dir="rtl"] .theme-language-toggles {
   left: auto !important;
   direction: ltr !important;
   transform: none !important;
-}
-
-/* Mobile responsive adjustments - exact HTML match */
-@media (max-width: 768px) {
-  /* Disable all animations on mobile */
-  .animate-fade-in-custom,
-  .animate-slide-in-sidebar-custom,
-  .animate-slide-in-sidebar-rtl-custom,
-  .animate-subtle-pulse-custom,
-  .animate-fade-in-up-custom,
-  .animate-fade-in-delayed,
-  .animate-fade-in-more-delayed,
-  .animate-fade-in-most-delayed,
-  .animate-section-1,
-  .animate-section-2,
-  .animate-section-3,
-  .animate-section-4,
-  .animate-section-5 {
-    animation: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-  
-  /* Disable hover effects on mobile */
-  .section-hover-effect:hover,
-  .section:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-    border: inherit !important;
-  }
-  
-  body.light-theme .section-hover-effect:hover,
-  body.light-theme .section:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-    border: inherit !important;
-  }
-  
-  .skill-chip-hover:hover,
-  .skill-chip:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-  }
-  
-  body.light-theme .skill-chip-hover:hover,
-  body.light-theme .skill-chip:hover {
-    transform: none !important;
-    background: inherit !important;
-  }
-
-  .project-link-button:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-  }
-
-  body.light-theme .project-link-button:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-  }
-
-  /* Mobile layout - body and main container */
-  body {
-    overflow-x: hidden;
-    max-width: 100%;
-  }
-
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  /* Mobile theme toggle adjustments - exact HTML match */
-  .theme-language-toggles {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 2000;
-    gap: 5px;
-  }
-  
-  .theme-toggle-button {
-    width: 30px;
-    height: 30px;
-    font-size: 0.8rem;
-    padding: 0.3rem;
-  }
-
-  /* Mobile contact info adjustments */
-  .contact-info ul li, 
-  .soft-skills ul li {
-    font-size: 0.85rem;
-  }
-  
-  .contact-info ul li a, 
-  .contact-info ul li span {
-    max-width: 90%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  /* Mobile sidebar adjustments - exact HTML match */
-  .sidebar {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0.5rem !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    transform: none !important;
-    animation: none !important;
-  }
-
-  /* Mobile sidebar sections */
-  .sidebar-section-gradient {
-    width: 100%;
-    max-width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
-    overflow: hidden;
-  }
-
-  /* Mobile main content adjustments */
-  .main-content {
-    padding: 1rem !important;
-    margin-top: 5px !important;
-    width: 100%;
-  }
-
-  /* Mobile section adjustments */
-  .section {
-    padding: 1rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  /* Mobile language progress bar adjustments */
-  .language-progress-bar {
-    height: 8px !important;
-  }
-
-  .language-progress-fill {
-    height: 8px !important;
-  }
-
-  /* Mobile project header adjustments */
-  .project-header {
-    flex-wrap: wrap;
-  }
-
-  /* Reset margins for project link buttons on mobile */
-  .project-header > .project-link-button {
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  /* RTL specific mobile adjustments */
-  body[dir="rtl"] .project-header > .project-link-button {
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  /* Mobile profile image - exact HTML match */
-  .profile-img {
-    width: 100px !important;
-    height: 100px !important;
-    margin: 0.75rem auto !important;
-  }
 }
 
 /* Main content section styling - exact HTML match */
@@ -862,146 +837,16 @@ body[dir="rtl"] .section:hover .section-title::after {
 }
 
 @media (max-width: 768px) {
-  .skills-container {
-    flex-direction: column;
+  /* Sidebar and main content stacking */
+  .cv-body-gradient, body {
+    flex-direction: column !important;
+    overflow-x: hidden !important;
+    max-width: 100% !important;
   }
-
-  .skills-container .section {
-    min-width: auto;
+  html {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
   }
-}
-
-/* Staggered animation delays for sections */
-.animate-section-1 {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease 0.2s forwards;
-}
-
-.animate-section-2 {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease 0.4s forwards;
-}
-
-.animate-section-3 {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease 0.6s forwards;
-}
-
-.animate-section-4 {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease 0.8s forwards;
-}
-
-.animate-section-5 {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease 1s forwards;
-}/* 
-Comprehensive Mobile Responsive Design - Exact HTML Match */
-@media (max-width: 768px) {
-  /* Disable all animations on mobile - exact HTML match */
-  .animate-fade-in-custom,
-  .animate-slide-in-sidebar-custom,
-  .animate-slide-in-sidebar-rtl-custom,
-  .animate-subtle-pulse-custom,
-  .animate-fade-in-up-custom,
-  .animate-fade-in-delayed,
-  .animate-fade-in-more-delayed,
-  .animate-fade-in-most-delayed,
-  .animate-section-1,
-  .animate-section-2,
-  .animate-section-3,
-  .animate-section-4,
-  .animate-section-5 {
-    animation: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-  
-  /* Disable hover effects on mobile */
-  .section-hover-effect:hover,
-  .section:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-    border: inherit !important;
-  }
-  
-  body.light-theme .section-hover-effect:hover,
-  body.light-theme .section:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-    border: inherit !important;
-  }
-  
-  .skill-chip-hover:hover,
-  .skill-chip:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-  }
-  
-  body.light-theme .skill-chip-hover:hover,
-  body.light-theme .skill-chip:hover {
-    transform: none !important;
-    background: inherit !important;
-  }
-
-  .project-link-button:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-  }
-
-  body.light-theme .project-link-button:hover {
-    transform: none !important;
-    box-shadow: inherit !important;
-  }
-
-  /* Mobile layout - body and main container */
-  body {
-    overflow-x: hidden;
-    max-width: 100%;
-    flex-direction: column;
-  }
-
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  /* Mobile theme toggle adjustments - exact HTML match */
-  .theme-language-toggles {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 2000;
-    gap: 5px;
-  }
-  
-  .theme-toggle-button {
-    width: 30px;
-    height: 30px;
-    font-size: 0.8rem;
-    padding: 0.3rem;
-  }
-
-  /* Mobile contact info adjustments */
-  .contact-info ul li, 
-  .soft-skills ul li {
-    font-size: 0.85rem;
-  }
-  
-  .contact-info ul li a, 
-  .contact-info ul li span {
-    max-width: 90%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  /* Mobile sidebar adjustments - exact HTML match */
   .sidebar {
     width: 100% !important;
     max-width: 100% !important;
@@ -1013,61 +858,93 @@ Comprehensive Mobile Responsive Design - Exact HTML Match */
     transform: none !important;
     animation: none !important;
   }
-
-  /* Mobile sidebar sections */
-  .sidebar-section-gradient {
-    width: 100%;
-    max-width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
-    overflow: hidden;
+  .sidebar-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+    overflow: hidden !important;
   }
-
-  /* Mobile main content adjustments */
   .main-content {
     padding: 1rem !important;
     margin-top: 5px !important;
-    width: 100%;
+    width: 100% !important;
   }
-
-  /* Mobile section adjustments */
   .section {
     padding: 1rem !important;
     margin-bottom: 1rem !important;
   }
-
-  /* Mobile profile image - exact HTML match */
+  /* Font and icon sizing */
+  .section-title {
+    font-size: 1.3rem !important;
+    gap: 0.3rem !important;
+  }
+  .section-title i {
+    font-size: 1.1rem !important;
+  }
+  .contact-info h3,
+  .soft-skills h3,
+  .languages h3 {
+    font-size: 1rem !important;
+    margin-bottom: 0.7rem !important;
+  }
+  .contact-info ul li,
+  .soft-skills ul li {
+    font-size: 0.85rem !important;
+  }
+  .project-header h3 {
+    font-size: 1rem !important;
+  }
+  .project-header .tech-badge {
+    font-size: 0.8rem !important;
+    padding: 0.15rem 0.5rem !important;
+  }
+  .project-header i {
+    font-size: 0.9rem !important;
+  }
+  /* Theme/Language toggle placement */
+  .theme-language-toggles {
+    position: absolute !important;
+    top: 5px !important;
+    right: 5px !important;
+    left: auto !important;
+    z-index: 2000 !important;
+    gap: 5px !important;
+  }
+  .theme-toggle-button {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.8rem !important;
+    padding: 0.2rem !important;
+  }
+  /* Project header wrapping */
+  .project-header {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  .project-header > .project-link-button {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  /* Profile image */
   .profile-img {
     width: 100px !important;
     height: 100px !important;
     margin: 0.75rem auto !important;
   }
-
-  /* Mobile language progress bar adjustments */
+  /* Language bar */
   .language-progress-bar {
     height: 8px !important;
   }
-
   .language-progress-fill {
     height: 8px !important;
   }
-
-  /* Mobile project header adjustments */
-  .project-header {
-    flex-wrap: wrap;
+  /* Skills container mobile styles */
+  .skills-container {
+    flex-direction: column !important;
   }
-
-  /* Reset margins for project link buttons on mobile */
-  .project-header > .project-link-button {
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  /* RTL specific mobile adjustments */
-  body[dir="rtl"] .project-header > .project-link-button {
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
+  .skills-container .section {
+    min-width: auto !important;
   }
 }
