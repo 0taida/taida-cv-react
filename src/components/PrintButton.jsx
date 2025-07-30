@@ -64,9 +64,210 @@ const PrintButton = () => {
       const interactiveElements = clonedContainer.querySelectorAll('.theme-language-toggles, .print-button');
       interactiveElements.forEach(el => el.remove());
 
-      // Apply print styles to sidebar
+      // Debug: Log what we found in the sidebar
+      console.log('Sidebar sections found:', clonedContainer.querySelectorAll('.sidebar-section').length);
+      console.log('Contact info found:', clonedContainer.querySelector('.contact-info') ? 'Yes' : 'No');
+      console.log('Soft skills found:', clonedContainer.querySelector('.soft-skills') ? 'Yes' : 'No');
+      console.log('Languages found:', clonedContainer.querySelector('.languages') ? 'Yes' : 'No');
+
+      // Force all sidebar content to be visible by recreating it from scratch
       const sidebar = clonedContainer.querySelector('.sidebar');
       if (sidebar) {
+        // Clear existing content and rebuild
+        sidebar.innerHTML = '';
+        
+        // Add profile image
+        const originalProfileImg = originalContainer.querySelector('.profile-img');
+        if (originalProfileImg) {
+          const profileImg = originalProfileImg.cloneNode(true);
+          sidebar.appendChild(profileImg);
+        }
+        
+        // Add contact info section with manual content creation
+        const originalContactInfo = originalContainer.querySelector('.contact-info');
+        if (originalContactInfo) {
+          const contactSection = document.createElement('div');
+          contactSection.className = 'sidebar-section';
+          contactSection.style.background = '#f8f9fa';
+          contactSection.style.border = '1px solid #dee2e6';
+          contactSection.style.borderRadius = '6px';
+          contactSection.style.padding = '15px';
+          contactSection.style.marginBottom = '20px';
+          contactSection.style.display = 'block !important';
+          contactSection.style.visibility = 'visible';
+          contactSection.style.opacity = '1';
+          contactSection.style.height = 'auto';
+          contactSection.style.overflow = 'visible';
+          
+          // Create contact info content manually
+          const contactDiv = document.createElement('div');
+          contactDiv.className = 'contact-info';
+          contactDiv.style.display = 'block';
+          contactDiv.style.color = '#333333';
+          
+          const contactHeader = document.createElement('h3');
+          contactHeader.textContent = t('contact');
+          contactHeader.style.color = '#007bff';
+          contactHeader.style.fontSize = '14px';
+          contactHeader.style.marginBottom = '10px';
+          contactHeader.style.fontWeight = '600';
+          contactHeader.style.borderBottom = '2px solid #007bff';
+          contactHeader.style.paddingBottom = '4px';
+          
+          const contactList = document.createElement('ul');
+          contactList.style.listStyle = 'none';
+          contactList.style.padding = '0';
+          contactList.style.margin = '0';
+          contactList.style.lineHeight = '1.8';
+          
+          // Add contact items manually
+          const contactItems = [
+            { icon: 'fas fa-envelope', text: 'taida.dream@gmail.com', isLink: true, href: 'mailto:taida.dream@gmail.com' },
+            { icon: 'fas fa-phone', text: '+967774126583', isLink: true, href: 'tel:+967774126583' },
+            { icon: 'fab fa-github', text: 'Github', isLink: true, href: 'https://github.com/0taida' },
+            { icon: 'fas fa-map-marker-alt', text: t('location'), isLink: false }
+          ];
+          
+          contactItems.forEach(item => {
+            const li = document.createElement('li');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.gap = '8px';
+            li.style.marginBottom = '6px';
+            li.style.fontSize = '11px';
+            li.style.color = '#333333';
+            
+            const icon = document.createElement('i');
+            icon.className = item.icon;
+            icon.style.color = '#007bff';
+            icon.style.minWidth = '16px';
+            icon.style.textAlign = 'center';
+            icon.style.fontSize = '11px';
+            
+            if (item.isLink) {
+              const link = document.createElement('a');
+              link.href = item.href;
+              link.textContent = item.text;
+              link.style.color = '#333333';
+              link.style.textDecoration = 'none';
+              li.appendChild(icon);
+              li.appendChild(link);
+            } else {
+              const span = document.createElement('span');
+              span.textContent = item.text;
+              span.style.color = '#333333';
+              li.appendChild(icon);
+              li.appendChild(span);
+            }
+            
+            contactList.appendChild(li);
+          });
+          
+          contactDiv.appendChild(contactHeader);
+          contactDiv.appendChild(contactList);
+          contactSection.appendChild(contactDiv);
+          sidebar.appendChild(contactSection);
+        }
+        
+        // Add soft skills section with manual content creation
+        const originalSoftSkills = originalContainer.querySelector('.soft-skills');
+        if (originalSoftSkills) {
+          const softSkillsSection = document.createElement('div');
+          softSkillsSection.className = 'sidebar-section';
+          softSkillsSection.style.background = '#f8f9fa';
+          softSkillsSection.style.border = '1px solid #dee2e6';
+          softSkillsSection.style.borderRadius = '6px';
+          softSkillsSection.style.padding = '15px';
+          softSkillsSection.style.marginBottom = '20px';
+          softSkillsSection.style.display = 'block !important';
+          softSkillsSection.style.visibility = 'visible';
+          softSkillsSection.style.opacity = '1';
+          softSkillsSection.style.height = 'auto';
+          softSkillsSection.style.overflow = 'visible';
+          
+          // Create soft skills content manually
+          const softSkillsDiv = document.createElement('div');
+          softSkillsDiv.className = 'soft-skills';
+          softSkillsDiv.style.display = 'block';
+          softSkillsDiv.style.color = '#333333';
+          
+          const softSkillsHeader = document.createElement('h3');
+          softSkillsHeader.textContent = t('soft-skills');
+          softSkillsHeader.style.color = '#007bff';
+          softSkillsHeader.style.fontSize = '14px';
+          softSkillsHeader.style.marginBottom = '10px';
+          softSkillsHeader.style.fontWeight = '600';
+          softSkillsHeader.style.borderBottom = '2px solid #007bff';
+          softSkillsHeader.style.paddingBottom = '4px';
+          
+          const softSkillsList = document.createElement('ul');
+          softSkillsList.style.listStyle = 'none';
+          softSkillsList.style.padding = '0';
+          softSkillsList.style.margin = '0';
+          softSkillsList.style.lineHeight = '1.6';
+          
+          // Add soft skills items manually
+          const softSkillsItems = [
+            'analytical-skills', 'teamwork', 'problem-solving', 'communication',
+            'adaptability', 'time-management', 'leadership', 'creativity',
+            'attention-to-detail', 'critical-thinking'
+          ];
+          
+          softSkillsItems.forEach(skillKey => {
+            const li = document.createElement('li');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.marginBottom = '4px';
+            li.style.fontSize = '11px';
+            li.style.color = '#333333';
+            li.style.paddingLeft = '12px';
+            li.style.position = 'relative';
+            
+            // Add bullet point
+            const bullet = document.createElement('span');
+            bullet.textContent = '•';
+            bullet.style.position = 'absolute';
+            bullet.style.left = '0';
+            bullet.style.color = '#007bff';
+            bullet.style.fontWeight = 'bold';
+            
+            const skillText = document.createElement('span');
+            skillText.textContent = t(skillKey);
+            skillText.style.color = '#333333';
+            
+            li.appendChild(bullet);
+            li.appendChild(skillText);
+            softSkillsList.appendChild(li);
+          });
+          
+          softSkillsDiv.appendChild(softSkillsHeader);
+          softSkillsDiv.appendChild(softSkillsList);
+          softSkillsSection.appendChild(softSkillsDiv);
+          sidebar.appendChild(softSkillsSection);
+        }
+        
+        // Add languages section
+        const originalLanguages = originalContainer.querySelector('.languages');
+        if (originalLanguages) {
+          const languagesSection = document.createElement('div');
+          languagesSection.className = 'sidebar-section';
+          languagesSection.style.background = '#f8f9fa';
+          languagesSection.style.border = '1px solid #dee2e6';
+          languagesSection.style.borderRadius = '6px';
+          languagesSection.style.padding = '15px';
+          languagesSection.style.marginBottom = '20px';
+          languagesSection.style.display = 'block';
+          languagesSection.style.visibility = 'visible';
+          languagesSection.style.opacity = '1';
+          
+          const languages = originalLanguages.cloneNode(true);
+          // Force dark text color for languages
+          languages.style.color = '#333333';
+          languagesSection.appendChild(languages);
+          sidebar.appendChild(languagesSection);
+        }
+
+        // Apply print styles to sidebar
         sidebar.style.width = '100%';
         sidebar.style.maxWidth = '280px';
         sidebar.style.float = i18n.language === 'ar' ? 'right' : 'left';
@@ -80,6 +281,9 @@ const PrintButton = () => {
         sidebar.style.padding = '15px';
         sidebar.style.background = '#f8f9fa';
         sidebar.style.border = '1px solid #dee2e6';
+        sidebar.style.display = 'block';
+        sidebar.style.visibility = 'visible';
+        sidebar.style.opacity = '1';
       }
 
       // Apply print styles to main content
@@ -112,11 +316,15 @@ const PrintButton = () => {
         section.style.background = '#f8f9fa';
         section.style.border = '1px solid #dee2e6';
         section.style.borderRadius = '6px';
-        section.style.padding = '12px';
-        section.style.marginBottom = '15px';
-        section.style.display = 'block';
+        section.style.padding = '15px';
+        section.style.marginBottom = '20px';
+        section.style.display = 'block !important';
         section.style.width = '100%';
         section.style.boxSizing = 'border-box';
+        section.style.visibility = 'visible';
+        section.style.opacity = '1';
+        section.style.height = 'auto';
+        section.style.overflow = 'visible';
       });
 
       // Apply print styles to section titles
@@ -164,9 +372,13 @@ const PrintButton = () => {
       // Apply print styles to contact info container
       const contactInfo = clonedContainer.querySelector('.contact-info');
       if (contactInfo) {
-        contactInfo.style.display = 'block';
+        contactInfo.style.display = 'block !important';
         contactInfo.style.width = '100%';
         contactInfo.style.marginBottom = '15px';
+        contactInfo.style.visibility = 'visible';
+        contactInfo.style.opacity = '1';
+        contactInfo.style.height = 'auto';
+        contactInfo.style.overflow = 'visible';
       }
 
       // Apply print styles to contact info list
@@ -208,9 +420,13 @@ const PrintButton = () => {
       // Apply print styles to soft skills container
       const softSkills = clonedContainer.querySelector('.soft-skills');
       if (softSkills) {
-        softSkills.style.display = 'block';
+        softSkills.style.display = 'block !important';
         softSkills.style.width = '100%';
         softSkills.style.marginBottom = '15px';
+        softSkills.style.visibility = 'visible';
+        softSkills.style.opacity = '1';
+        softSkills.style.height = 'auto';
+        softSkills.style.overflow = 'visible';
       }
 
       // Apply print styles to soft skills list
@@ -294,21 +510,28 @@ const PrintButton = () => {
         chip.style.opacity = '1';
         chip.style.animation = 'none';
         chip.style.fontSize = '10px';
-        chip.style.padding = '4px 8px';
-        chip.style.margin = '3px';
-        chip.style.display = 'inline-block';
+        chip.style.padding = '2px 6px'; // Reduced padding
+        chip.style.margin = '2px 4px 2px 0'; // Better margins
+        chip.style.display = 'inline-flex'; // Better centering
+        chip.style.alignItems = 'center'; // Center content vertically
+        chip.style.justifyContent = 'center'; // Center content horizontally
         chip.style.borderRadius = '12px';
+        chip.style.whiteSpace = 'nowrap';
+        chip.style.textAlign = 'center';
+        chip.style.lineHeight = '1.2';
       });
 
       // Apply print styles to skill chip containers
-      const skillChipContainers = clonedContainer.querySelectorAll('.section ul[style*="flex"]');
+      const skillChipContainers = clonedContainer.querySelectorAll('.section ul[style*="flex"], .skills-container ul');
       skillChipContainers.forEach(container => {
         container.style.display = 'flex';
         container.style.flexWrap = 'wrap';
-        container.style.gap = '4px';
+        container.style.gap = '6px';
         container.style.listStyle = 'none';
         container.style.padding = '0';
-        container.style.margin = '0';
+        container.style.margin = '8px 0';
+        container.style.alignItems = 'flex-start';
+        container.style.justifyContent = 'flex-start';
       });
 
       // Apply print styles to tech badges
@@ -318,9 +541,15 @@ const PrintButton = () => {
         badge.style.color = '#1976d2';
         badge.style.border = '1px solid #bbdefb';
         badge.style.fontSize = '9px';
-        badge.style.padding = '2px 5px';
-        badge.style.margin = '2px';
-        badge.style.display = 'inline-block';
+        badge.style.padding = '2px 5px'; // Reduced padding
+        badge.style.margin = '2px 3px 2px 0'; // Better margins
+        badge.style.display = 'inline-flex'; // Better centering
+        badge.style.alignItems = 'center'; // Center content vertically
+        badge.style.justifyContent = 'center'; // Center content horizontally
+        badge.style.borderRadius = '10px';
+        badge.style.whiteSpace = 'nowrap';
+        badge.style.textAlign = 'center';
+        badge.style.lineHeight = '1.2';
       });
 
       // Apply print styles to language progress bars
@@ -348,6 +577,20 @@ const PrintButton = () => {
           beforeElement.style.background = '#007bff';
           beforeElement.style.boxShadow = 'none';
         }
+      });
+
+      // Force all sidebar text elements to be dark colored
+      const allSidebarText = clonedContainer.querySelectorAll('.sidebar *, .sidebar-section *, .contact-info *, .soft-skills *, .languages *');
+      allSidebarText.forEach(el => {
+        if (el.tagName !== 'I' && !el.classList.contains('skill-chip') && !el.classList.contains('tech-badge')) {
+          el.style.color = '#333333';
+        }
+      });
+
+      // Ensure sidebar headers remain blue
+      const sidebarHeaders = clonedContainer.querySelectorAll('.sidebar h3, .sidebar-section h3');
+      sidebarHeaders.forEach(header => {
+        header.style.color = '#007bff';
       });
 
       // Apply print styles to project headers
