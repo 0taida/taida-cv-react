@@ -501,59 +501,68 @@ const PrintButton = () => {
         skillsContainer.style.width = '100%';
       }
 
-      // Apply print styles to skill chips
+      // Apply print styles to skill chips - remove badge styling
       const skillChips = clonedContainer.querySelectorAll('.skill-chip');
       skillChips.forEach(chip => {
-        chip.style.background = '#e9ecef';
-        chip.style.color = '#495057';
-        chip.style.border = '1px solid #dee2e6';
+        chip.style.background = 'none';
+        chip.style.color = '#333333';
+        chip.style.border = 'none';
         chip.style.opacity = '1';
         chip.style.animation = 'none';
-        chip.style.fontSize = '10px';
-        chip.style.padding = '4px 8px'; // Slightly increased for better centering
-        chip.style.margin = '3px 5px 3px 0'; // Better margins
-        chip.style.display = 'inline-flex'; // Better centering
-        chip.style.alignItems = 'center'; // Center content vertically
-        chip.style.justifyContent = 'center'; // Center content horizontally
-        chip.style.borderRadius = '12px';
+        chip.style.fontSize = '11px';
+        chip.style.padding = '0';
+        chip.style.margin = '0 8px 4px 0';
+        chip.style.display = 'inline';
+        chip.style.borderRadius = '0';
         chip.style.whiteSpace = 'nowrap';
-        chip.style.textAlign = 'center';
-        chip.style.lineHeight = '1'; // Perfect line height for centering
-        chip.style.height = '24px'; // Fixed height for consistent appearance
-        chip.style.minHeight = '24px'; // Ensure minimum height
+        chip.style.textAlign = 'left';
+        chip.style.lineHeight = '1.5';
+        chip.style.height = 'auto';
+        chip.style.minHeight = 'auto';
         chip.style.boxSizing = 'border-box';
-        chip.style.verticalAlign = 'middle';
+        chip.style.verticalAlign = 'baseline';
+        chip.style.boxShadow = 'none';
+        
+        // Add bullet point before each skill
+        if (!chip.textContent.startsWith('• ')) {
+          chip.textContent = '• ' + chip.textContent;
+        }
       });
 
-      // Apply print styles to skill chip containers
+      // Apply print styles to skill chip containers - make them simple lists
       const skillChipContainers = clonedContainer.querySelectorAll('.section ul[style*="flex"], .skills-container ul');
       skillChipContainers.forEach(container => {
-        container.style.display = 'flex';
-        container.style.flexWrap = 'wrap';
-        container.style.gap = '6px';
+        container.style.display = 'block';
+        container.style.flexWrap = 'nowrap';
+        container.style.gap = '0';
         container.style.listStyle = 'none';
         container.style.padding = '0';
         container.style.margin = '8px 0';
         container.style.alignItems = 'flex-start';
         container.style.justifyContent = 'flex-start';
+        container.style.lineHeight = '1.6';
       });
 
-      // Apply print styles to tech badges
+      // Apply print styles to tech badges - remove badge styling
       const techBadges = clonedContainer.querySelectorAll('.tech-badge');
       techBadges.forEach(badge => {
-        badge.style.background = '#e3f2fd';
-        badge.style.color = '#1976d2';
-        badge.style.border = '1px solid #bbdefb';
-        badge.style.fontSize = '9px';
-        badge.style.padding = '2px 5px'; // Reduced padding
-        badge.style.margin = '2px 3px 2px 0'; // Better margins
-        badge.style.display = 'inline-flex'; // Better centering
-        badge.style.alignItems = 'center'; // Center content vertically
-        badge.style.justifyContent = 'center'; // Center content horizontally
-        badge.style.borderRadius = '10px';
+        badge.style.background = 'none';
+        badge.style.color = '#333333';
+        badge.style.border = 'none';
+        badge.style.fontSize = '11px';
+        badge.style.padding = '0';
+        badge.style.margin = '0 8px 4px 0';
+        badge.style.display = 'inline';
+        badge.style.borderRadius = '0';
         badge.style.whiteSpace = 'nowrap';
-        badge.style.textAlign = 'center';
-        badge.style.lineHeight = '1.2';
+        badge.style.textAlign = 'left';
+        badge.style.lineHeight = '1.6';
+        badge.style.boxShadow = 'none';
+        
+        // Add bullet point before each tech item
+        if (!badge.textContent.startsWith('• ')) {
+          badge.textContent = '• ' + badge.textContent;
+        }
       });
 
       // Apply print styles to language progress bars
