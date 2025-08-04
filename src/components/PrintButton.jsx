@@ -510,15 +510,19 @@ const PrintButton = () => {
         chip.style.opacity = '1';
         chip.style.animation = 'none';
         chip.style.fontSize = '10px';
-        chip.style.padding = '2px 6px'; // Reduced padding
-        chip.style.margin = '2px 4px 2px 0'; // Better margins
+        chip.style.padding = '4px 8px'; // Slightly increased for better centering
+        chip.style.margin = '3px 5px 3px 0'; // Better margins
         chip.style.display = 'inline-flex'; // Better centering
         chip.style.alignItems = 'center'; // Center content vertically
         chip.style.justifyContent = 'center'; // Center content horizontally
         chip.style.borderRadius = '12px';
         chip.style.whiteSpace = 'nowrap';
         chip.style.textAlign = 'center';
-        chip.style.lineHeight = '1.2';
+        chip.style.lineHeight = '1'; // Perfect line height for centering
+        chip.style.height = '24px'; // Fixed height for consistent appearance
+        chip.style.minHeight = '24px'; // Ensure minimum height
+        chip.style.boxSizing = 'border-box';
+        chip.style.verticalAlign = 'middle';
       });
 
       // Apply print styles to skill chip containers
