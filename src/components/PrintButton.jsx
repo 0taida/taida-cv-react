@@ -8,752 +8,540 @@ const PrintButton = () => {
 
   const handlePrint = async () => {
     if (isGenerating) return;
-    
+
     setIsGenerating(true);
-    
+
     try {
-      // Get the actual CV container
+      // Get the original CV data
       const originalContainer = document.querySelector('.cv-body-gradient');
-      
+
       if (!originalContainer) {
         console.error('CV container not found');
         setIsGenerating(false);
         return;
       }
 
-      // Create a clone of the container for PDF generation
-      const clonedContainer = originalContainer.cloneNode(true);
-      
-      // Create a temporary wrapper with print-optimized styles
+      // Create a completely new classic CV document
+      const cvDocument = document.createElement('div');
+      cvDocument.style.width = '210mm';
+      cvDocument.style.maxHeight = '297mm';
+      cvDocument.style.backgroundColor = '#ffffff';
+      cvDocument.style.fontFamily = 'Times, "Times New Roman", serif';
+      cvDocument.style.color = '#000000';
+      cvDocument.style.fontSize = '11pt';
+      cvDocument.style.lineHeight = '1.3';
+      cvDocument.style.padding = '20mm 18mm';
+      cvDocument.style.boxSizing = 'border-box';
+      cvDocument.style.margin = '0';
+      cvDocument.style.overflow = 'hidden';
+
+      // Create header section
+      const header = document.createElement('div');
+      header.style.textAlign = 'center';
+      header.style.marginBottom = '12pt';
+      header.style.borderBottom = '1pt solid #000000';
+      header.style.paddingBottom = '10pt';
+
+      // Name
+      const name = document.createElement('h1');
+      name.textContent = 'Taida Alshahrani';
+      name.style.fontSize = '20pt';
+      name.style.fontWeight = 'bold';
+      name.style.margin = '0 0 8pt 0';
+      name.style.color = '#000000';
+      name.style.letterSpacing = '1pt';
+
+      // Contact info line
+      const contactLine = document.createElement('div');
+      contactLine.style.fontSize = '10pt';
+      contactLine.style.color = '#000000';
+      contactLine.style.lineHeight = '1.3';
+      contactLine.innerHTML = `
+        <div style="margin-bottom: 3pt;">${t('location') || 'Riyadh, Saudi Arabia'} • (+967) 774-126-583</div>
+        <div>taida.dream@gmail.com • github.com/0taida</div>
+      `;
+
+      header.appendChild(name);
+      header.appendChild(contactLine);
+
+      // Professional Summary Section - Extract from actual component
+      const summarySection = document.createElement('div');
+      summarySection.style.marginBottom = '15pt';
+
+      const summaryTitle = document.createElement('div');
+      summaryTitle.textContent = t('professional-summary') || 'Professional Summary';
+      summaryTitle.style.fontSize = '12pt';
+      summaryTitle.style.fontWeight = 'bold';
+      summaryTitle.style.color = '#000000';
+      summaryTitle.style.marginBottom = '8pt';
+      summaryTitle.style.textAlign = 'center';
+      summaryTitle.style.fontStyle = 'italic';
+
+      const summaryContent = document.createElement('div');
+      const originalSummary = originalContainer.querySelector('.professional-summary, [class*="summary"]');
+      let summaryText = '';
+      if (originalSummary) {
+        // Extract the actual paragraph content
+        const summaryParagraph = originalSummary.querySelector('p');
+        if (summaryParagraph) {
+          summaryText = summaryParagraph.textContent || summaryParagraph.innerText || '';
+          summaryText = summaryText.replace(/\s+/g, ' ').trim();
+        }
+      }
+      if (!summaryText) {
+        // Use the translation key from ProfessionalSummary.jsx
+        summaryText = t('passionate-developer') || 'Passionate developer with expertise in modern web technologies.';
+      }
+      summaryContent.textContent = summaryText;
+      summaryContent.style.fontSize = '11pt';
+      summaryContent.style.lineHeight = '1.4';
+      summaryContent.style.textAlign = 'justify';
+      summaryContent.style.color = '#000000';
+
+      summarySection.appendChild(summaryTitle);
+      summarySection.appendChild(summaryContent);
+
+      // Top Skills Section - Extract from actual data
+      const skillsSection = document.createElement('div');
+      skillsSection.style.marginBottom = '12pt';
+
+      const skillsTitle = document.createElement('div');
+      skillsTitle.textContent = 'Top Skills';
+      skillsTitle.style.fontSize = '12pt';
+      skillsTitle.style.fontWeight = 'bold';
+      skillsTitle.style.color = '#000000';
+      skillsTitle.style.marginBottom = '6pt';
+      skillsTitle.style.textAlign = 'center';
+      skillsTitle.style.fontStyle = 'italic';
+
+      const skillsList = document.createElement('ul');
+      skillsList.style.listStyle = 'disc';
+      skillsList.style.paddingLeft = '20pt';
+      skillsList.style.margin = '0';
+      skillsList.style.lineHeight = '1.3';
+
+      // Extract technical skills from actual data
+      const originalTechSkills = originalContainer.querySelector('.technical-skills, [class*="technical"]');
+      const skillChips = originalTechSkills ? originalTechSkills.querySelectorAll('.skill-chip, .tech-badge') : [];
+
+      if (skillChips.length > 0) {
+        // Group skills from actual data
+        const frontendSkills = [];
+        const backendSkills = [];
+        const otherSkills = [];
+
+        Array.from(skillChips).forEach(chip => {
+          const skill = chip.textContent.trim();
+          if (skill.toLowerCase().includes('react') || skill.toLowerCase().includes('vue') ||
+            skill.toLowerCase().includes('angular') || skill.toLowerCase().includes('css') ||
+            skill.toLowerCase().includes('html') || skill.toLowerCase().includes('javascript') ||
+            skill.toLowerCase().includes('typescript') || skill.toLowerCase().includes('bootstrap') ||
+            skill.toLowerCase().includes('tailwind')) {
+            frontendSkills.push(skill);
+          } else if (skill.toLowerCase().includes('node') || skill.toLowerCase().includes('php') ||
+            skill.toLowerCase().includes('laravel') || skill.toLowerCase().includes('mysql') ||
+            skill.toLowerCase().includes('postgresql') || skill.toLowerCase().includes('database')) {
+            backendSkills.push(skill);
+          } else {
+            otherSkills.push(skill);
+          }
+        });
+
+        // Add detailed skill descriptions
+        if (frontendSkills.length > 0) {
+          const frontendItem = document.createElement('li');
+          frontendItem.innerHTML = `<strong>Frontend Development:</strong> Proficient in ${frontendSkills.join(', ')} with extensive experience building responsive, user-friendly web applications. Expertise in modern JavaScript ES6+, component-based architecture, state management solutions, and CSS frameworks for creating pixel-perfect, accessible user interfaces.`;
+          frontendItem.style.marginBottom = '6pt';
+          frontendItem.style.fontSize = '11pt';
+          frontendItem.style.textAlign = 'justify';
+          skillsList.appendChild(frontendItem);
+        }
+
+        if (backendSkills.length > 0) {
+          const backendItem = document.createElement('li');
+          backendItem.innerHTML = `<strong>Backend Development:</strong> Strong experience with ${backendSkills.join(', ')}, RESTful API design, microservices architecture, and database optimization. Skilled in server-side development, authentication systems, and cloud deployment strategies for scalable applications.`;
+          backendItem.style.marginBottom = '6pt';
+          backendItem.style.fontSize = '11pt';
+          backendItem.style.textAlign = 'justify';
+          skillsList.appendChild(backendItem);
+        }
+
+        if (otherSkills.length > 0) {
+          const otherItem = document.createElement('li');
+          otherItem.innerHTML = `<strong>Development Tools & Methodologies:</strong> ${otherSkills.join(', ')}, version control with Git, CI/CD pipelines, Agile/Scrum methodologies, test-driven development, and code review processes. Experience with containerization and modern development workflows.`;
+          otherItem.style.marginBottom = '6pt';
+          otherItem.style.fontSize = '11pt';
+          otherItem.style.textAlign = 'justify';
+          skillsList.appendChild(otherItem);
+        }
+      } else {
+        // Use actual cvData as fallback
+        const skillCategories = [
+          { name: 'Frontend', skills: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Bootstrap', 'Tailwind CSS'] },
+          { name: 'Backend', skills: ['Node.js', 'PHP', 'Laravel', 'MySQL', 'PostgreSQL'] },
+          { name: 'Tools', skills: ['Git', 'Docker', 'Firebase', 'GitHub', 'Postman', 'npm', 'Ubuntu'] }
+        ];
+
+        skillCategories.forEach(category => {
+          const skillItem = document.createElement('li');
+          skillItem.innerHTML = `<strong>${category.name} Development:</strong> ${category.skills.join(', ')}`;
+          skillItem.style.marginBottom = '4pt';
+          skillItem.style.fontSize = '11pt';
+          skillsList.appendChild(skillItem);
+        });
+      }
+
+      skillsSection.appendChild(skillsTitle);
+      skillsSection.appendChild(skillsList);
+
+      // Work Experience Section - Extract from actual Experience.jsx component
+      const experienceSection = document.createElement('div');
+      experienceSection.style.marginBottom = '15pt';
+
+      const experienceTitle = document.createElement('div');
+      experienceTitle.textContent = t('professional-experience') || 'Work Experience';
+      experienceTitle.style.fontSize = '12pt';
+      experienceTitle.style.fontWeight = 'bold';
+      experienceTitle.style.color = '#000000';
+      experienceTitle.style.marginBottom = '10pt';
+      experienceTitle.style.textAlign = 'center';
+      experienceTitle.style.fontStyle = 'italic';
+
+      experienceSection.appendChild(experienceTitle);
+
+      // Extract from actual Experience component
+      const originalExperience = originalContainer.querySelector('.experience, [class*="experience"]');
+      if (originalExperience) {
+        const jobEntry = document.createElement('div');
+        jobEntry.style.marginBottom = '12pt';
+
+        const jobHeader = document.createElement('div');
+        jobHeader.style.display = 'flex';
+        jobHeader.style.justifyContent = 'space-between';
+        jobHeader.style.alignItems = 'baseline';
+        jobHeader.style.marginBottom = '4pt';
+
+        // Extract job title from h3
+        const jobTitleElement = originalExperience.querySelector('h3');
+        const jobTitle = jobTitleElement ? (t('software-developer') || jobTitleElement.textContent.trim()) : 'Software Developer';
+
+        // Extract date from .experience-date
+        const dateElement = originalExperience.querySelector('.experience-date');
+        const jobDate = dateElement ? dateElement.textContent.trim() : '2023 - Present';
+
+        const jobInfo = document.createElement('div');
+        jobInfo.innerHTML = `<strong>${jobTitle}</strong>`;
+        jobInfo.style.fontSize = '11pt';
+
+        const jobDateEl = document.createElement('div');
+        jobDateEl.textContent = jobDate;
+        jobDateEl.style.fontSize = '10pt';
+        jobDateEl.style.fontStyle = 'italic';
+
+        jobHeader.appendChild(jobInfo);
+        jobHeader.appendChild(jobDateEl);
+
+        // Extract job description from paragraph and list items
+        const jobDescription = document.createElement('div');
+        let descriptionText = '';
+        
+        // Get the paragraph description
+        const paragraph = originalExperience.querySelector('p');
+        if (paragraph) {
+          descriptionText += (t('doing') || paragraph.textContent.trim()) + ' ';
+        }
+
+        // Get the list items
+        const listItems = originalExperience.querySelectorAll('ul li');
+        if (listItems.length > 0) {
+          const listTexts = Array.from(listItems).map(li => {
+            const key = li.textContent.trim();
+            return t('collaborated-platform') || t('enhanced-ui') || t('participated-development') || key;
+          });
+          descriptionText += listTexts.join('. ') + '.';
+        }
+
+        jobDescription.textContent = descriptionText || 'Developed and maintained web applications using modern technologies and frameworks.';
+        jobDescription.style.fontSize = '11pt';
+        jobDescription.style.lineHeight = '1.4';
+        jobDescription.style.textAlign = 'justify';
+        jobDescription.style.marginTop = '4pt';
+
+        jobEntry.appendChild(jobHeader);
+        jobEntry.appendChild(jobDescription);
+        experienceSection.appendChild(jobEntry);
+      } else {
+        // Fallback using translation keys from Experience.jsx
+        const jobEntry = document.createElement('div');
+        jobEntry.style.marginBottom = '12pt';
+
+        const jobHeader = document.createElement('div');
+        jobHeader.style.display = 'flex';
+        jobHeader.style.justifyContent = 'space-between';
+        jobHeader.style.alignItems = 'baseline';
+        jobHeader.style.marginBottom = '4pt';
+
+        const jobInfo = document.createElement('div');
+        jobInfo.innerHTML = `<strong>${t('software-developer') || 'Software Developer'}</strong>`;
+        jobInfo.style.fontSize = '11pt';
+
+        const jobDateEl = document.createElement('div');
+        jobDateEl.textContent = '2023 - Present';
+        jobDateEl.style.fontSize = '10pt';
+        jobDateEl.style.fontStyle = 'italic';
+
+        jobHeader.appendChild(jobInfo);
+        jobHeader.appendChild(jobDateEl);
+
+        const jobDescription = document.createElement('div');
+        const descriptionParts = [
+          t('doing') || 'Currently working as a software developer',
+          t('collaborated-platform') || 'Collaborated on platform development',
+          t('enhanced-ui') || 'Enhanced user interface components',
+          t('participated-development') || 'Participated in development processes'
+        ];
+        jobDescription.textContent = descriptionParts.join('. ') + '.';
+        jobDescription.style.fontSize = '11pt';
+        jobDescription.style.lineHeight = '1.4';
+        jobDescription.style.textAlign = 'justify';
+        jobDescription.style.marginTop = '4pt';
+
+        jobEntry.appendChild(jobHeader);
+        jobEntry.appendChild(jobDescription);
+        experienceSection.appendChild(jobEntry);
+      }
+
+      // Projects Section - Extract from actual Projects.jsx component
+      const projectsSection = document.createElement('div');
+      projectsSection.style.marginBottom = '15pt';
+
+      const projectsTitle = document.createElement('div');
+      projectsTitle.textContent = t('projects') || 'Key Projects';
+      projectsTitle.style.fontSize = '12pt';
+      projectsTitle.style.fontWeight = 'bold';
+      projectsTitle.style.color = '#000000';
+      projectsTitle.style.marginBottom = '10pt';
+      projectsTitle.style.textAlign = 'center';
+      projectsTitle.style.fontStyle = 'italic';
+
+      projectsSection.appendChild(projectsTitle);
+
+      // Extract projects from actual Projects component
+      const originalProjects = originalContainer.querySelector('.projects, [class*="project"]');
+      if (originalProjects) {
+        const projectElements = originalProjects.querySelectorAll('.project-header, h3');
+        let projectCount = 0;
+        
+        Array.from(projectElements).slice(0, 4).forEach(projectEl => {
+          if (projectCount >= 4) return; // Limit to 4 projects for space
+          
+          const projectEntry = document.createElement('div');
+          projectEntry.style.marginBottom = '10pt';
+
+          const projectHeader = document.createElement('div');
+          projectHeader.style.display = 'flex';
+          projectHeader.style.justifyContent = 'space-between';
+          projectHeader.style.alignItems = 'baseline';
+          projectHeader.style.marginBottom = '3pt';
+
+          // Extract project title
+          const titleElement = projectEl.querySelector('h3') || projectEl;
+          const projectTitle = titleElement ? titleElement.textContent.trim() : '';
+          
+          if (!projectTitle || projectTitle.toLowerCase().includes('project')) return;
+
+          const projectTitleEl = document.createElement('div');
+          projectTitleEl.innerHTML = `<strong>${t(projectTitle) || projectTitle}</strong>`;
+          projectTitleEl.style.fontSize = '11pt';
+
+          // Extract tech badges
+          const techBadges = projectEl.querySelectorAll('.tech-badge');
+          const techStack = Array.from(techBadges).map(badge => badge.textContent.trim()).join(', ');
+          
+          const projectTech = document.createElement('div');
+          projectTech.textContent = techStack;
+          projectTech.style.fontSize = '9pt';
+          projectTech.style.fontStyle = 'italic';
+          projectTech.style.color = '#666666';
+
+          projectHeader.appendChild(projectTitleEl);
+          if (techStack) {
+            projectHeader.appendChild(projectTech);
+          }
+
+          // Extract project description
+          const projectContainer = projectEl.closest('div');
+          const descElement = projectContainer ? projectContainer.querySelector('p') : null;
+          const projectDesc = document.createElement('div');
+          
+          if (descElement) {
+            const descKey = descElement.textContent.trim();
+            projectDesc.textContent = t(descKey) || descKey;
+          } else {
+            projectDesc.textContent = t(`${projectTitle.toLowerCase().replace(/\s+/g, '-')}-desc`) || 'Project description not available.';
+          }
+          
+          projectDesc.style.fontSize = '11pt';
+          projectDesc.style.lineHeight = '1.4';
+          projectDesc.style.textAlign = 'justify';
+
+          projectEntry.appendChild(projectHeader);
+          projectEntry.appendChild(projectDesc);
+          projectsSection.appendChild(projectEntry);
+          projectCount++;
+        });
+      } else {
+        // Fallback using actual cvData projects with translation keys
+        const realProjects = [
+          { title: 'rai-platform', desc: 'rai-platform-desc', tech: 'Vue.js, Django' },
+          { title: 'notification-system', desc: 'notification-system-desc', tech: 'Next.js, TypeScript, Prisma' },
+          { title: 'sms-project', desc: 'sms-project-desc', tech: 'React, Express.js' },
+          { title: 'docker-explorer', desc: 'docker-explorer-desc', tech: 'Remix.js' }
+        ];
+
+        realProjects.forEach(project => {
+          const projectEntry = document.createElement('div');
+          projectEntry.style.marginBottom = '10pt';
+
+          const projectHeader = document.createElement('div');
+          projectHeader.style.display = 'flex';
+          projectHeader.style.justifyContent = 'space-between';
+          projectHeader.style.alignItems = 'baseline';
+          projectHeader.style.marginBottom = '3pt';
+
+          const projectTitleEl = document.createElement('div');
+          projectTitleEl.innerHTML = `<strong>${t(project.title) || project.title}</strong>`;
+          projectTitleEl.style.fontSize = '11pt';
+
+          const projectTech = document.createElement('div');
+          projectTech.textContent = project.tech;
+          projectTech.style.fontSize = '9pt';
+          projectTech.style.fontStyle = 'italic';
+          projectTech.style.color = '#666666';
+
+          projectHeader.appendChild(projectTitleEl);
+          projectHeader.appendChild(projectTech);
+
+          const projectDesc = document.createElement('div');
+          projectDesc.textContent = t(project.desc) || 'Project description not available.';
+          projectDesc.style.fontSize = '11pt';
+          projectDesc.style.lineHeight = '1.4';
+          projectDesc.style.textAlign = 'justify';
+
+          projectEntry.appendChild(projectHeader);
+          projectEntry.appendChild(projectDesc);
+          projectsSection.appendChild(projectEntry);
+        });
+      }
+
+      // Education Section
+      const educationSection = document.createElement('div');
+      educationSection.style.marginBottom = '18pt';
+
+      const educationTitle = document.createElement('div');
+      educationTitle.textContent = t('education') || 'Education';
+      educationTitle.style.fontSize = '12pt';
+      educationTitle.style.fontWeight = 'bold';
+      educationTitle.style.color = '#000000';
+      educationTitle.style.marginBottom = '8pt';
+      educationTitle.style.textAlign = 'center';
+      educationTitle.style.fontStyle = 'italic';
+
+      const educationContent = document.createElement('div');
+      const originalEducation = originalContainer.querySelector('.education, [class*="education"]');
+      if (originalEducation) {
+        const educationText = originalEducation.textContent || originalEducation.innerText || '';
+        educationContent.textContent = educationText.replace(/\s+/g, ' ').trim();
+      } else {
+        educationContent.textContent = 'Bachelor\'s Degree in Computer Science, University Name, Graduation Year (YYYY)';
+      }
+      educationContent.style.fontSize = '11pt';
+      educationContent.style.lineHeight = '1.4';
+      educationContent.style.color = '#000000';
+
+      educationSection.appendChild(educationTitle);
+      educationSection.appendChild(educationContent);
+
+      // Additional Skills Section (Languages + Soft Skills)
+      const additionalSection = document.createElement('div');
+      additionalSection.style.marginBottom = '18pt';
+
+      const additionalTitle = document.createElement('div');
+      additionalTitle.textContent = 'Additional Qualifications';
+      additionalTitle.style.fontSize = '12pt';
+      additionalTitle.style.fontWeight = 'bold';
+      additionalTitle.style.color = '#000000';
+      additionalTitle.style.marginBottom = '8pt';
+      additionalTitle.style.textAlign = 'center';
+      additionalTitle.style.fontStyle = 'italic';
+
+      const additionalContent = document.createElement('div');
+
+      // Languages
+      const originalLanguages = originalContainer.querySelector('.languages');
+      let languagesText = '';
+      if (originalLanguages) {
+        const languageItems = originalLanguages.querySelectorAll('li, span');
+        const languages = Array.from(languageItems).map(item => item.textContent.trim()).filter(text => text && text.length > 1);
+        languagesText = languages.join(', ');
+      }
+      if (!languagesText) {
+        languagesText = 'Arabic (Native), English (Fluent)';
+      }
+
+      // Soft Skills
+      const originalSoftSkills = originalContainer.querySelector('.soft-skills');
+      let softSkillsText = '';
+      if (originalSoftSkills) {
+        const softSkillItems = originalSoftSkills.querySelectorAll('li, span');
+        const softSkills = Array.from(softSkillItems).map(item => item.textContent.trim()).filter(text => text && text.length > 1);
+        softSkillsText = softSkills.slice(0, 6).join(', ');
+      }
+      if (!softSkillsText) {
+        softSkillsText = 'Problem Solving, Team Collaboration, Communication, Leadership, Adaptability, Critical Thinking';
+      }
+
+      additionalContent.innerHTML = `
+        <div style="margin-bottom: 8pt;"><strong>Languages:</strong> ${languagesText}</div>
+        <div><strong>Core Competencies:</strong> ${softSkillsText}</div>
+      `;
+      additionalContent.style.fontSize = '11pt';
+      additionalContent.style.lineHeight = '1.4';
+      additionalContent.style.color = '#000000';
+
+      additionalSection.appendChild(additionalTitle);
+      additionalSection.appendChild(additionalContent);
+
+      // Assemble the document
+      cvDocument.appendChild(header);
+      cvDocument.appendChild(summarySection);
+      cvDocument.appendChild(skillsSection);
+      cvDocument.appendChild(experienceSection);
+      cvDocument.appendChild(projectsSection);
+      cvDocument.appendChild(educationSection);
+      cvDocument.appendChild(additionalSection);
+
+      // Create temporary wrapper
       const tempWrapper = document.createElement('div');
       tempWrapper.style.position = 'absolute';
       tempWrapper.style.left = '-9999px';
       tempWrapper.style.top = '0';
-      tempWrapper.style.width = '210mm';
-      tempWrapper.style.minHeight = '297mm';
-      tempWrapper.style.backgroundColor = '#ffffff';
-      tempWrapper.style.fontFamily = 'Arial, sans-serif';
-      tempWrapper.style.color = '#333333';
-      tempWrapper.style.fontSize = '12px';
-      tempWrapper.style.lineHeight = '1.4';
-      tempWrapper.style.padding = '15mm';
-      tempWrapper.style.boxSizing = 'border-box';
-      
-      // Apply print-friendly styles to the cloned container
-      clonedContainer.style.background = '#ffffff';
-      clonedContainer.style.color = '#333333';
-      clonedContainer.style.display = 'block';
-      clonedContainer.style.minHeight = 'auto';
-      clonedContainer.style.flexWrap = 'nowrap';
-      clonedContainer.style.opacity = '1';
-      clonedContainer.style.animation = 'none';
-      clonedContainer.style.transform = 'none';
-      clonedContainer.style.maxWidth = '100%';
-      clonedContainer.style.overflow = 'visible';
-      
-      // Handle RTL layout for Arabic
-      if (i18n.language === 'ar') {
-        clonedContainer.style.direction = 'rtl';
-        clonedContainer.style.textAlign = 'right';
-      } else {
-        clonedContainer.style.direction = 'ltr';
-        clonedContainer.style.textAlign = 'left';
-      }
-
-      // Remove interactive elements from the clone
-      const interactiveElements = clonedContainer.querySelectorAll('.theme-language-toggles, .print-button');
-      interactiveElements.forEach(el => el.remove());
-
-      // Debug: Log what we found in the sidebar
-      console.log('Sidebar sections found:', clonedContainer.querySelectorAll('.sidebar-section').length);
-      console.log('Contact info found:', clonedContainer.querySelector('.contact-info') ? 'Yes' : 'No');
-      console.log('Soft skills found:', clonedContainer.querySelector('.soft-skills') ? 'Yes' : 'No');
-      console.log('Languages found:', clonedContainer.querySelector('.languages') ? 'Yes' : 'No');
-
-      // Force all sidebar content to be visible by recreating it from scratch
-      const sidebar = clonedContainer.querySelector('.sidebar');
-      if (sidebar) {
-        // Clear existing content and rebuild
-        sidebar.innerHTML = '';
-        
-        // Add profile image
-        const originalProfileImg = originalContainer.querySelector('.profile-img');
-        if (originalProfileImg) {
-          const profileImg = originalProfileImg.cloneNode(true);
-          sidebar.appendChild(profileImg);
-        }
-        
-        // Add contact info section with manual content creation
-        const originalContactInfo = originalContainer.querySelector('.contact-info');
-        if (originalContactInfo) {
-          const contactSection = document.createElement('div');
-          contactSection.className = 'sidebar-section';
-          contactSection.style.background = '#f8f9fa';
-          contactSection.style.border = '1px solid #dee2e6';
-          contactSection.style.borderRadius = '6px';
-          contactSection.style.padding = '15px';
-          contactSection.style.marginBottom = '20px';
-          contactSection.style.display = 'block !important';
-          contactSection.style.visibility = 'visible';
-          contactSection.style.opacity = '1';
-          contactSection.style.height = 'auto';
-          contactSection.style.overflow = 'visible';
-          
-          // Create contact info content manually
-          const contactDiv = document.createElement('div');
-          contactDiv.className = 'contact-info';
-          contactDiv.style.display = 'block';
-          contactDiv.style.color = '#333333';
-          
-          const contactHeader = document.createElement('h3');
-          contactHeader.textContent = t('contact');
-          contactHeader.style.color = '#007bff';
-          contactHeader.style.fontSize = '14px';
-          contactHeader.style.marginBottom = '10px';
-          contactHeader.style.fontWeight = '600';
-          contactHeader.style.borderBottom = '2px solid #007bff';
-          contactHeader.style.paddingBottom = '4px';
-          
-          const contactList = document.createElement('ul');
-          contactList.style.listStyle = 'none';
-          contactList.style.padding = '0';
-          contactList.style.margin = '0';
-          contactList.style.lineHeight = '1.8';
-          
-          // Add contact items manually
-          const contactItems = [
-            { icon: 'fas fa-envelope', text: 'taida.dream@gmail.com', isLink: true, href: 'mailto:taida.dream@gmail.com' },
-            { icon: 'fas fa-phone', text: '+967774126583', isLink: true, href: 'tel:+967774126583' },
-            { icon: 'fab fa-github', text: 'Github', isLink: true, href: 'https://github.com/0taida' },
-            { icon: 'fas fa-map-marker-alt', text: t('location'), isLink: false }
-          ];
-          
-          contactItems.forEach(item => {
-            const li = document.createElement('li');
-            li.style.display = 'flex';
-            li.style.alignItems = 'center';
-            li.style.gap = '8px';
-            li.style.marginBottom = '6px';
-            li.style.fontSize = '11px';
-            li.style.color = '#333333';
-            
-            const icon = document.createElement('i');
-            icon.className = item.icon;
-            icon.style.color = '#007bff';
-            icon.style.minWidth = '16px';
-            icon.style.textAlign = 'center';
-            icon.style.fontSize = '11px';
-            
-            if (item.isLink) {
-              const link = document.createElement('a');
-              link.href = item.href;
-              link.textContent = item.text;
-              link.style.color = '#333333';
-              link.style.textDecoration = 'none';
-              li.appendChild(icon);
-              li.appendChild(link);
-            } else {
-              const span = document.createElement('span');
-              span.textContent = item.text;
-              span.style.color = '#333333';
-              li.appendChild(icon);
-              li.appendChild(span);
-            }
-            
-            contactList.appendChild(li);
-          });
-          
-          contactDiv.appendChild(contactHeader);
-          contactDiv.appendChild(contactList);
-          contactSection.appendChild(contactDiv);
-          sidebar.appendChild(contactSection);
-        }
-        
-        // Add soft skills section with manual content creation
-        const originalSoftSkills = originalContainer.querySelector('.soft-skills');
-        if (originalSoftSkills) {
-          const softSkillsSection = document.createElement('div');
-          softSkillsSection.className = 'sidebar-section';
-          softSkillsSection.style.background = '#f8f9fa';
-          softSkillsSection.style.border = '1px solid #dee2e6';
-          softSkillsSection.style.borderRadius = '6px';
-          softSkillsSection.style.padding = '15px';
-          softSkillsSection.style.marginBottom = '20px';
-          softSkillsSection.style.display = 'block !important';
-          softSkillsSection.style.visibility = 'visible';
-          softSkillsSection.style.opacity = '1';
-          softSkillsSection.style.height = 'auto';
-          softSkillsSection.style.overflow = 'visible';
-          
-          // Create soft skills content manually
-          const softSkillsDiv = document.createElement('div');
-          softSkillsDiv.className = 'soft-skills';
-          softSkillsDiv.style.display = 'block';
-          softSkillsDiv.style.color = '#333333';
-          
-          const softSkillsHeader = document.createElement('h3');
-          softSkillsHeader.textContent = t('soft-skills');
-          softSkillsHeader.style.color = '#007bff';
-          softSkillsHeader.style.fontSize = '14px';
-          softSkillsHeader.style.marginBottom = '10px';
-          softSkillsHeader.style.fontWeight = '600';
-          softSkillsHeader.style.borderBottom = '2px solid #007bff';
-          softSkillsHeader.style.paddingBottom = '4px';
-          
-          const softSkillsList = document.createElement('ul');
-          softSkillsList.style.listStyle = 'none';
-          softSkillsList.style.padding = '0';
-          softSkillsList.style.margin = '0';
-          softSkillsList.style.lineHeight = '1.6';
-          
-          // Add soft skills items manually
-          const softSkillsItems = [
-            'analytical-skills', 'teamwork', 'problem-solving', 'communication',
-            'adaptability', 'time-management', 'leadership', 'creativity',
-            'attention-to-detail', 'critical-thinking'
-          ];
-          
-          softSkillsItems.forEach(skillKey => {
-            const li = document.createElement('li');
-            li.style.display = 'flex';
-            li.style.alignItems = 'center';
-            li.style.marginBottom = '4px';
-            li.style.fontSize = '11px';
-            li.style.color = '#333333';
-            li.style.paddingLeft = '12px';
-            li.style.position = 'relative';
-            
-            // Add bullet point
-            const bullet = document.createElement('span');
-            bullet.textContent = '•';
-            bullet.style.position = 'absolute';
-            bullet.style.left = '0';
-            bullet.style.color = '#007bff';
-            bullet.style.fontWeight = 'bold';
-            
-            const skillText = document.createElement('span');
-            skillText.textContent = t(skillKey);
-            skillText.style.color = '#333333';
-            
-            li.appendChild(bullet);
-            li.appendChild(skillText);
-            softSkillsList.appendChild(li);
-          });
-          
-          softSkillsDiv.appendChild(softSkillsHeader);
-          softSkillsDiv.appendChild(softSkillsList);
-          softSkillsSection.appendChild(softSkillsDiv);
-          sidebar.appendChild(softSkillsSection);
-        }
-        
-        // Add languages section
-        const originalLanguages = originalContainer.querySelector('.languages');
-        if (originalLanguages) {
-          const languagesSection = document.createElement('div');
-          languagesSection.className = 'sidebar-section';
-          languagesSection.style.background = '#f8f9fa';
-          languagesSection.style.border = '1px solid #dee2e6';
-          languagesSection.style.borderRadius = '6px';
-          languagesSection.style.padding = '15px';
-          languagesSection.style.marginBottom = '20px';
-          languagesSection.style.display = 'block';
-          languagesSection.style.visibility = 'visible';
-          languagesSection.style.opacity = '1';
-          
-          const languages = originalLanguages.cloneNode(true);
-          // Force dark text color for languages
-          languages.style.color = '#333333';
-          languagesSection.appendChild(languages);
-          sidebar.appendChild(languagesSection);
-        }
-
-        // Apply print styles to sidebar
-        sidebar.style.width = '100%';
-        sidebar.style.maxWidth = '280px';
-        sidebar.style.float = i18n.language === 'ar' ? 'right' : 'left';
-        sidebar.style.marginRight = i18n.language === 'ar' ? '0' : '20px';
-        sidebar.style.marginLeft = i18n.language === 'ar' ? '20px' : '0';
-        sidebar.style.marginBottom = '20px';
-        sidebar.style.transform = 'none';
-        sidebar.style.animation = 'none';
-        sidebar.style.boxShadow = 'none';
-        sidebar.style.borderRadius = '8px';
-        sidebar.style.padding = '15px';
-        sidebar.style.background = '#f8f9fa';
-        sidebar.style.border = '1px solid #dee2e6';
-        sidebar.style.display = 'block';
-        sidebar.style.visibility = 'visible';
-        sidebar.style.opacity = '1';
-      }
-
-      // Apply print styles to main content
-      const mainContent = clonedContainer.querySelector('.main-content');
-      if (mainContent) {
-        mainContent.style.overflow = 'hidden';
-        mainContent.style.padding = '15px';
-        mainContent.style.marginTop = '0';
-        mainContent.style.background = '#ffffff';
-      }
-
-      // Apply print styles to all sections
-      const sections = clonedContainer.querySelectorAll('.section, .sidebar-section');
-      sections.forEach(section => {
-        section.style.background = '#ffffff';
-        section.style.border = '1px solid #dee2e6';
-        section.style.boxShadow = 'none';
-        section.style.borderRadius = '6px';
-        section.style.marginBottom = '15px';
-        section.style.padding = '12px';
-        section.style.opacity = '1';
-        section.style.transform = 'none';
-        section.style.animation = 'none';
-        section.style.pageBreakInside = 'avoid';
-      });
-
-      // Apply print styles to sidebar sections
-      const sidebarSections = clonedContainer.querySelectorAll('.sidebar-section');
-      sidebarSections.forEach(section => {
-        section.style.background = '#f8f9fa';
-        section.style.border = '1px solid #dee2e6';
-        section.style.borderRadius = '6px';
-        section.style.padding = '15px';
-        section.style.marginBottom = '20px';
-        section.style.display = 'block !important';
-        section.style.width = '100%';
-        section.style.boxSizing = 'border-box';
-        section.style.visibility = 'visible';
-        section.style.opacity = '1';
-        section.style.height = 'auto';
-        section.style.overflow = 'visible';
-      });
-
-      // Apply print styles to section titles
-      const sectionTitles = clonedContainer.querySelectorAll('.section-title');
-      sectionTitles.forEach(title => {
-        title.style.color = '#007bff';
-        title.style.background = 'none';
-        title.style.webkitBackgroundClip = 'initial';
-        title.style.webkitTextFillColor = 'initial';
-        title.style.fontSize = '16px';
-        title.style.marginBottom = '12px';
-        title.style.fontWeight = '600';
-        title.style.borderBottom = '2px solid #007bff';
-        title.style.paddingBottom = '5px';
-        title.style.display = 'flex';
-        title.style.alignItems = 'center';
-        title.style.gap = '8px';
-      });
-
-      // Apply print styles to profile image
-      const profileImg = clonedContainer.querySelector('.profile-img');
-      if (profileImg) {
-        profileImg.style.width = '120px';
-        profileImg.style.height = '120px';
-        profileImg.style.margin = '15px auto 20px auto';
-        profileImg.style.border = '3px solid #007bff';
-        profileImg.style.boxShadow = 'none';
-        profileImg.style.display = 'block';
-        profileImg.style.borderRadius = '50%';
-        profileImg.style.objectFit = 'cover';
-      }
-
-      // Apply print styles to contact info, soft skills, and languages headers
-      const headers = clonedContainer.querySelectorAll('.contact-info h3, .soft-skills h3, .languages h3');
-      headers.forEach(header => {
-        header.style.color = '#007bff';
-        header.style.fontSize = '14px';
-        header.style.marginBottom = '10px';
-        header.style.fontWeight = '600';
-        header.style.borderBottom = '2px solid #007bff';
-        header.style.paddingBottom = '4px';
-        header.style.display = 'block';
-      });
-
-      // Apply print styles to contact info container
-      const contactInfo = clonedContainer.querySelector('.contact-info');
-      if (contactInfo) {
-        contactInfo.style.display = 'block !important';
-        contactInfo.style.width = '100%';
-        contactInfo.style.marginBottom = '15px';
-        contactInfo.style.visibility = 'visible';
-        contactInfo.style.opacity = '1';
-        contactInfo.style.height = 'auto';
-        contactInfo.style.overflow = 'visible';
-      }
-
-      // Apply print styles to contact info list
-      const contactList = clonedContainer.querySelector('.contact-info ul');
-      if (contactList) {
-        contactList.style.listStyle = 'none';
-        contactList.style.padding = '0';
-        contactList.style.margin = '0';
-        contactList.style.lineHeight = '1.8';
-      }
-
-      // Apply print styles to contact info items
-      const contactItems = clonedContainer.querySelectorAll('.contact-info ul li');
-      contactItems.forEach(item => {
-        item.style.display = 'flex';
-        item.style.alignItems = 'center';
-        item.style.gap = '8px';
-        item.style.marginBottom = '6px';
-        item.style.fontSize = '11px';
-        item.style.color = '#333333';
-      });
-
-      // Apply print styles to contact info icons
-      const contactIcons = clonedContainer.querySelectorAll('.contact-info ul li i');
-      contactIcons.forEach(icon => {
-        icon.style.color = '#007bff';
-        icon.style.minWidth = '16px';
-        icon.style.textAlign = 'center';
-        icon.style.fontSize = '11px';
-      });
-
-      // Apply print styles to contact info links
-      const contactLinks = clonedContainer.querySelectorAll('.contact-info ul li a');
-      contactLinks.forEach(link => {
-        link.style.color = '#333333';
-        link.style.textDecoration = 'none';
-      });
-
-      // Apply print styles to soft skills container
-      const softSkills = clonedContainer.querySelector('.soft-skills');
-      if (softSkills) {
-        softSkills.style.display = 'block !important';
-        softSkills.style.width = '100%';
-        softSkills.style.marginBottom = '15px';
-        softSkills.style.visibility = 'visible';
-        softSkills.style.opacity = '1';
-        softSkills.style.height = 'auto';
-        softSkills.style.overflow = 'visible';
-      }
-
-      // Apply print styles to soft skills list
-      const softSkillsList = clonedContainer.querySelector('.soft-skills ul');
-      if (softSkillsList) {
-        softSkillsList.style.listStyle = 'none';
-        softSkillsList.style.padding = '0';
-        softSkillsList.style.margin = '0';
-        softSkillsList.style.lineHeight = '1.6';
-      }
-
-      // Apply print styles to soft skills items
-      const softSkillsItems = clonedContainer.querySelectorAll('.soft-skills ul li');
-      softSkillsItems.forEach(item => {
-        item.style.display = 'flex';
-        item.style.alignItems = 'center';
-        item.style.marginBottom = '4px';
-        item.style.fontSize = '11px';
-        item.style.color = '#333333';
-        item.style.paddingLeft = '12px';
-        item.style.position = 'relative';
-      });
-
-      // Apply print styles to languages container
-      const languages = clonedContainer.querySelector('.languages');
-      if (languages) {
-        languages.style.display = 'block';
-        languages.style.width = '100%';
-        languages.style.marginBottom = '15px';
-      }
-
-      // Apply print styles to languages list
-      const languagesList = clonedContainer.querySelector('.languages ul');
-      if (languagesList) {
-        languagesList.style.listStyle = 'none';
-        languagesList.style.padding = '0';
-        languagesList.style.margin = '0';
-        languagesList.style.width = '100%';
-      }
-
-      // Apply print styles to language items
-      const languageItems = clonedContainer.querySelectorAll('.languages ul li');
-      languageItems.forEach(item => {
-        item.style.marginBottom = '12px';
-        item.style.width = '100%';
-        item.style.display = 'block';
-      });
-
-      // Apply print styles to language names
-      const languageNames = clonedContainer.querySelectorAll('.languages ul li span');
-      languageNames.forEach(name => {
-        name.style.color = '#333333';
-        name.style.fontSize = '11px';
-        name.style.fontWeight = '500';
-        name.style.display = 'block';
-        name.style.marginBottom = '4px';
-      });
-
-      // Apply print styles to text elements
-      const textElements = clonedContainer.querySelectorAll('p, li:not(.contact-info li):not(.soft-skills li):not(.languages li), span:not(.skill-chip):not(.tech-badge):not(.contact-info span):not(.languages span)');
-      textElements.forEach(el => {
-        el.style.color = '#333333';
-        el.style.fontSize = '11px';
-        el.style.lineHeight = '1.5';
-        el.style.marginBottom = '8px';
-      });
-
-      // Apply print styles to skills container
-      const skillsContainer = clonedContainer.querySelector('.skills-container');
-      if (skillsContainer) {
-        skillsContainer.style.display = 'block';
-        skillsContainer.style.width = '100%';
-      }
-
-      // Apply print styles to skill chips - remove badge styling
-      const skillChips = clonedContainer.querySelectorAll('.skill-chip');
-      skillChips.forEach(chip => {
-        chip.style.background = 'none';
-        chip.style.color = '#333333';
-        chip.style.border = 'none';
-        chip.style.opacity = '1';
-        chip.style.animation = 'none';
-        chip.style.fontSize = '11px';
-        chip.style.padding = '0';
-        chip.style.margin = '0 8px 4px 0';
-        chip.style.display = 'inline';
-        chip.style.borderRadius = '0';
-        chip.style.whiteSpace = 'nowrap';
-        chip.style.textAlign = 'left';
-        chip.style.lineHeight = '1.5';
-        chip.style.height = 'auto';
-        chip.style.minHeight = 'auto';
-        chip.style.boxSizing = 'border-box';
-        chip.style.verticalAlign = 'baseline';
-        chip.style.boxShadow = 'none';
-        
-        // Add bullet point before each skill
-        if (!chip.textContent.startsWith('• ')) {
-          chip.textContent = '• ' + chip.textContent;
-        }
-      });
-
-      // Apply print styles to skill chip containers - make them simple lists
-      const skillChipContainers = clonedContainer.querySelectorAll('.section ul[style*="flex"], .skills-container ul');
-      skillChipContainers.forEach(container => {
-        container.style.display = 'block';
-        container.style.flexWrap = 'nowrap';
-        container.style.gap = '0';
-        container.style.listStyle = 'none';
-        container.style.padding = '0';
-        container.style.margin = '8px 0';
-        container.style.alignItems = 'flex-start';
-        container.style.justifyContent = 'flex-start';
-        container.style.lineHeight = '1.6';
-      });
-
-      // Apply print styles to tech badges - remove badge styling
-      const techBadges = clonedContainer.querySelectorAll('.tech-badge');
-      techBadges.forEach(badge => {
-        badge.style.background = 'none';
-        badge.style.color = '#333333';
-        badge.style.border = 'none';
-        badge.style.fontSize = '11px';
-        badge.style.padding = '0';
-        badge.style.margin = '0 8px 4px 0';
-        badge.style.display = 'inline';
-        badge.style.borderRadius = '0';
-        badge.style.whiteSpace = 'nowrap';
-        badge.style.textAlign = 'left';
-        badge.style.lineHeight = '1.6';
-        badge.style.boxShadow = 'none';
-        
-        // Add bullet point before each tech item
-        if (!badge.textContent.startsWith('• ')) {
-          badge.textContent = '• ' + badge.textContent;
-        }
-      });
-
-      // Apply print styles to language progress bars
-      const languageBars = clonedContainer.querySelectorAll('.language-progress-bar');
-      languageBars.forEach(bar => {
-        bar.style.background = '#e9ecef';
-        bar.style.border = '1px solid #dee2e6';
-        bar.style.opacity = '1';
-        bar.style.animation = 'none';
-        bar.style.height = '8px';
-      });
-
-      const languageFills = clonedContainer.querySelectorAll('.language-progress-fill');
-      languageFills.forEach(fill => {
-        fill.style.background = '#007bff';
-        fill.style.boxShadow = 'none';
-      });
-
-      // Apply print styles to soft skills bullets
-      const softSkillsBullets = clonedContainer.querySelectorAll('.soft-skills-bullet');
-      softSkillsBullets.forEach(bullet => {
-        bullet.style.color = '#333333';
-        const beforeElement = bullet.querySelector('::before');
-        if (beforeElement) {
-          beforeElement.style.background = '#007bff';
-          beforeElement.style.boxShadow = 'none';
-        }
-      });
-
-      // Force all sidebar text elements to be dark colored
-      const allSidebarText = clonedContainer.querySelectorAll('.sidebar *, .sidebar-section *, .contact-info *, .soft-skills *, .languages *');
-      allSidebarText.forEach(el => {
-        if (el.tagName !== 'I' && !el.classList.contains('skill-chip') && !el.classList.contains('tech-badge')) {
-          el.style.color = '#333333';
-        }
-      });
-
-      // Ensure sidebar headers remain blue
-      const sidebarHeaders = clonedContainer.querySelectorAll('.sidebar h3, .sidebar-section h3');
-      sidebarHeaders.forEach(header => {
-        header.style.color = '#007bff';
-      });
-
-      // Apply print styles to project headers
-      const projectHeaders = clonedContainer.querySelectorAll('.project-header');
-      projectHeaders.forEach(header => {
-        header.style.display = 'flex';
-        header.style.alignItems = 'center';
-        header.style.gap = '10px';
-        header.style.marginBottom = '10px';
-        header.style.flexWrap = 'wrap';
-      });
-
-      // Apply print styles to project titles
-      const projectTitles = clonedContainer.querySelectorAll('.project-header h3');
-      projectTitles.forEach(title => {
-        title.style.color = '#007bff';
-        title.style.fontSize = '13px';
-        title.style.fontWeight = '600';
-        title.style.margin = '0';
-      });
-
-      // Apply print styles to experience sections
-      const experienceItems = clonedContainer.querySelectorAll('.section h3:not(.project-header h3)');
-      experienceItems.forEach(item => {
-        item.style.color = '#007bff';
-        item.style.fontSize = '13px';
-        item.style.fontWeight = '600';
-        item.style.marginBottom = '5px';
-        item.style.marginTop = '10px';
-      });
-
-      // Apply print styles to experience dates
-      const experienceDates = clonedContainer.querySelectorAll('.experience-date');
-      experienceDates.forEach(date => {
-        date.style.color = '#666666';
-        date.style.fontSize = '10px';
-        date.style.marginBottom = '6px';
-        date.style.display = 'block';
-      });
-
-      // Apply print styles to lists in main content
-      const mainContentLists = clonedContainer.querySelectorAll('.main-content ul:not(.contact-info ul):not(.soft-skills ul):not(.languages ul)');
-      mainContentLists.forEach(list => {
-        list.style.listStyle = 'none';
-        list.style.padding = '0';
-        list.style.margin = '8px 0';
-      });
-
-      // Apply print styles to list items in main content
-      const mainContentListItems = clonedContainer.querySelectorAll('.main-content ul li:not(.contact-info li):not(.soft-skills li):not(.languages li)');
-      mainContentListItems.forEach(item => {
-        item.style.marginBottom = '4px';
-        item.style.paddingLeft = '12px';
-        item.style.position = 'relative';
-        item.style.fontSize = '11px';
-        item.style.lineHeight = '1.4';
-        item.style.color = '#333333';
-      });
-
-      // Apply print styles to project dividers
-      const projectDividers = clonedContainer.querySelectorAll('.project-divider');
-      projectDividers.forEach(divider => {
-        divider.style.background = '#dee2e6';
-        divider.style.margin = '15px 0';
-        divider.style.height = '1px';
-        divider.style.border = 'none';
-      });
-
-      // Apply print styles to main content paragraphs
-      const mainContentParagraphs = clonedContainer.querySelectorAll('.main-content p');
-      mainContentParagraphs.forEach(p => {
-        p.style.color = '#333333';
-        p.style.fontSize = '11px';
-        p.style.lineHeight = '1.5';
-        p.style.marginBottom = '10px';
-        p.style.textAlign = i18n.language === 'ar' ? 'right' : 'left';
-      });
-
-      // Apply print styles to section icons
-      const sectionIcons = clonedContainer.querySelectorAll('.section-title i');
-      sectionIcons.forEach(icon => {
-        icon.style.fontSize = '14px';
-        icon.style.color = '#007bff';
-        icon.style.marginRight = i18n.language === 'ar' ? '0' : '6px';
-        icon.style.marginLeft = i18n.language === 'ar' ? '6px' : '0';
-      });
-
-      // Fix RTL alignment for Arabic
-      if (i18n.language === 'ar') {
-        // RTL adjustments for contact info
-        const rtlContactItems = clonedContainer.querySelectorAll('.contact-info ul li');
-        rtlContactItems.forEach(item => {
-          item.style.flexDirection = 'row-reverse';
-          item.style.textAlign = 'right';
-          item.style.justifyContent = 'flex-start';
-        });
-
-        // RTL adjustments for soft skills
-        const rtlSoftSkills = clonedContainer.querySelectorAll('.soft-skills ul li');
-        rtlSoftSkills.forEach(item => {
-          item.style.paddingLeft = '0';
-          item.style.paddingRight = '12px';
-          item.style.textAlign = 'right';
-        });
-
-        // RTL adjustments for project headers
-        const rtlProjectHeaders = clonedContainer.querySelectorAll('.project-header');
-        rtlProjectHeaders.forEach(header => {
-          header.style.flexDirection = 'row-reverse';
-          header.style.justifyContent = 'flex-start';
-        });
-      }
-
-      // Remove all animations and transitions
-      const allElements = clonedContainer.querySelectorAll('*');
-      allElements.forEach(el => {
-        el.style.animation = 'none';
-        el.style.transition = 'none';
-        el.style.transform = 'none';
-      });
-
-      // Add the cloned container to the temporary wrapper
-      tempWrapper.appendChild(clonedContainer);
+      tempWrapper.appendChild(cvDocument);
       document.body.appendChild(tempWrapper);
 
-      // Wait for images to load and styles to apply
-      const images = tempWrapper.querySelectorAll('img');
-      await Promise.all(Array.from(images).map(img => {
-        return new Promise((resolve) => {
-          if (img.complete) {
-            resolve();
-          } else {
-            img.onload = resolve;
-            img.onerror = resolve;
-          }
-        });
-      }));
-
+      // Wait for styles to apply
       await new Promise(resolve => setTimeout(resolve, 300));
 
-      // Configure html2pdf options for the styled clone
+      // Configure html2pdf options
       const opt = {
-        margin: [8, 8, 8, 8],
-        filename: `Taida_CV_${i18n.language === 'ar' ? 'Arabic' : 'English'}.pdf`,
-        image: { 
-          type: 'jpeg', 
-          quality: 0.95 
+        margin: [15, 15, 15, 15],
+        filename: `Taida_Alshahrani_CV_${i18n.language === 'ar' ? 'Arabic' : 'English'}.pdf`,
+        image: {
+          type: 'jpeg',
+          quality: 0.98
         },
-        html2canvas: { 
-          scale: 1.2,
+        html2canvas: {
+          scale: 1.5,
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
@@ -761,25 +549,25 @@ const PrintButton = () => {
           letterRendering: true,
           scrollX: 0,
           scrollY: 0,
-          width: 794, // A4 width
-          height: Math.max(tempWrapper.scrollHeight + 100, 1123)
+          width: 794,
+          height: Math.max(cvDocument.scrollHeight + 50, 1123)
         },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
           orientation: 'portrait',
           compress: true
         }
       };
 
-      // Generate PDF from the styled clone
-      await html2pdf().set(opt).from(clonedContainer).save();
-      
+      // Generate PDF
+      await html2pdf().set(opt).from(cvDocument).save();
+
       // Clean up
       document.body.removeChild(tempWrapper);
-      
-      console.log('PDF generated successfully with proper styling');
-      
+
+      console.log('Classic professional CV generated successfully');
+
     } catch (error) {
       console.error('PDF generation failed:', error);
       alert(t('pdf-error', 'Failed to generate PDF. Please try again.'));
@@ -789,7 +577,7 @@ const PrintButton = () => {
   };
 
   return (
-    <button 
+    <button
       onClick={handlePrint}
       className={`print-button theme-toggle-button ${isGenerating ? 'generating' : ''}`}
       title={t('print-cv', 'Print CV')}
