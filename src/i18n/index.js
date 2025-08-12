@@ -6,6 +6,7 @@ const resources = {
     translation: {
       contact: "Contact",
       location: "Sana'a, Yemen",
+      "full-name": "Mohammed Al-holakh",
       "soft-skills": "Soft Skills",
       "analytical-skills": "Analytical Skills",
       teamwork: "Teamwork",
@@ -90,6 +91,7 @@ const resources = {
     translation: {
       contact: "التواصل",
       location: "صنعاء، اليمن",
+      "full-name": "محمد الحليقة",
       "soft-skills": "المهارات الشخصية",
       "analytical-skills": "المهارات التحليلية",
       teamwork: "العمل الجماعي",

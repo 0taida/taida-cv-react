@@ -136,18 +136,21 @@ const PrintButton = () => {
       [dir='rtl'] .experience .job-header, [dir='rtl'] .project-header { direction: rtl; }
     `;
 
+    const fullName = escapeHTML(t('full-name') || '');
+    const docTitle = fullName ? fullName + ' CV' : 'CV';
+
     return `<!doctype html>
       <html lang="${lang}" dir="${dir}">
       <head>
         <meta charset="utf-8" />
-        <title>Taida Alshahrani CV</title>
+        <title>${docTitle}</title>
         <style>${styles}</style>
       </head>
       <body>
         <div class="page">
           <div class="container">
             <div class="header">
-              <h1 class="name">Taida Alshahrani</h1>
+              <h1 class="name">${fullName}</h1>
               <div class="contact">
                 <div style="margin-bottom:3pt;">${escapeHTML(t('location') || '')} • <span dir="ltr">${escapeHTML(cvData.contact.phone)}</span></div>
                 <div><a href="mailto:${escapeHTML(cvData.contact.email)}" style="color:#000;text-decoration:none;">${escapeHTML(cvData.contact.email)}</a> • ${escapeHTML(githubDisplay)}</div>

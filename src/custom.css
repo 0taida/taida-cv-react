@@ -794,10 +794,10 @@ body.light-theme .print-button.generating:hover {
   animation: none !important;
 }
 
-/* RTL support - ensure buttons stay in top-right */
+/* RTL support - flip to the left in Arabic */
 body[dir="rtl"] .theme-language-toggles {
-  right: 10px !important;
-  left: auto !important;
+  left: 10px !important;
+  right: auto !important;
   direction: ltr !important;
   transform: none !important;
 }
