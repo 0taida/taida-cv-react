@@ -1,21 +1,21 @@
 # 📝 Taida CV - React Version
 
 A modern, bilingual, and responsive CV web app built with **React**, **Vite**, **Tailwind CSS**, and **i18next**.  
-Switch between **dark** and **light** themes, and toggle between **English** and **Arabic** with a single click!
+Switch between **dark** and **light** themes, toggle between **English** and **Arabic** (full RTL), and print a pixel-perfect PDF via the browser’s print dialog.
 
 ---
 
 ## 🚀 Features
 
-- **React-powered:** Built with modern React hooks and components
-- **Component Architecture:** Modular, reusable components for easy maintenance
-- **Tailwind CSS:** Utility-first CSS framework for rapid styling
-- **i18next Integration:** Professional internationalization with react-i18next
-- **Theme System:** Toggle between dark and light themes with smooth transitions
-- **Bilingual Support:** Instantly switch between English and Arabic with full RTL support
-- **Responsive Design:** Mobile-first approach that looks great on all devices
-- **Smooth Animations:** Custom Tailwind animations for better user experience
-- **Interactive Elements:** Hover effects and transitions throughout
+- **React-powered:** Modern React with hooks and component composition
+- **Component Architecture:** Cleanly separated sections (Summary, Experience, Education, Projects, etc.)
+- **Tailwind CSS + Custom CSS:** Utility-first styling plus `src/custom.css` for gradients, animations, RTL/mobile tweaks
+- **i18next Integration:** Professional i18n with `react-i18next`, including Arabic RTL and print-specific short texts
+- **Theme System:** Toggle dark/light themes with smooth transitions
+- **Bilingual Support:** Instant English/Arabic switching with direction-aware styles
+- **Responsive Design:** Mobile-first layout matching the original HTML reference across breakpoints
+- **Native Print to PDF:** Print via hidden iframe + `window.print()` for reliable, accurate output (no html2pdf.js)
+- **RTL-Perfect Printing:** Arabic page is centered with correct margins and spacing in PDFs
 
 ---
 
@@ -61,58 +61,68 @@ Switch between **dark** and **light** themes, and toggle between **English** and
 ```
 src/
 ├── components/
-│   ├── ContactInfo.jsx      # Contact information component
-│   ├── Languages.jsx        # Language skills with progress bars
-│   ├── ProfessionalSummary.jsx # Professional summary section
-│   ├── ProfileImage.jsx     # Profile image component
-│   ├── SoftSkills.jsx       # Soft skills list
-│   ├── TechnicalSkills.jsx  # Technical skills chips
-│   └── ThemeToggle.jsx      # Theme and language toggle buttons
+│   ├── ContactInfo.jsx           # Contact information
+│   ├── Education.jsx             # Education section
+│   ├── Experience.jsx            # Professional experience
+│   ├── Interests.jsx             # Interests section
+│   ├── Languages.jsx             # Language skills with progress bars
+│   ├── PrintButton.jsx           # Native print-to-PDF via hidden iframe
+│   ├── ProfessionalSummary.jsx   # Professional summary section
+│   ├── ProfileImage.jsx          # Profile image
+│   ├── Projects.jsx              # Key projects list
+│   ├── SoftSkills.jsx            # Soft skills list
+│   ├── TechnicalSkills.jsx       # Technical skills chips
+│   └── ThemeToggle.jsx           # Theme and language toggle buttons
+├── data/
+│   └── cvData.js                 # Centralized CV data (contact, skills, projects, ...)
 ├── i18n/
-│   └── index.js            # i18next configuration and translations
-├── App.jsx                 # Main application component
-├── main.jsx               # React entry point
-└── index.css              # Tailwind CSS and custom styles
+│   └── index.js                  # i18next configuration and translations
+├── App.jsx                       # Main application component
+├── main.jsx                      # React entry point
+├── index.css                     # Tailwind base and utilities
+└── custom.css                    # Additional custom styles (animations, gradients, print)
 ```
 
 ---
 
 ## 🎨 Customization
 
-### **Personal Information**
-Update contact details, skills, and experience in the respective components:
-- `ContactInfo.jsx` - Email, phone, GitHub, location
-- `TechnicalSkills.jsx` - Technical skills array
-- `SoftSkills.jsx` - Soft skills list
-- `Languages.jsx` - Language proficiency levels
+### **Content Data (Recommended)**
+Most content is centralized in `src/data/cvData.js`:
+- **Contact:** email, phone, GitHub, location
+- **Technical Skills:** frontend/backend/tools arrays
+- **Soft Skills:** list of soft skills
+- **Languages:** list with proficiency percentages
+- **Projects:** titles, descriptions (i18n keys), tech badges
 
 ### **Translations**
-Add or modify translations in `src/i18n/index.js`:
-```javascript
-const resources = {
-  en: { translation: { /* English translations */ } },
-  ar: { translation: { /* Arabic translations */ } }
-}
-```
+Edit `src/i18n/index.js` for all translatable strings. For print, short descriptions are used when available:
+- Project short keys: `*-desc-short` (e.g., `rai-platform-desc-short`)
+- Section titles: `top-skills`, `additional-qualifications`, `core-competencies`, `frontend-development`, `backend-development`, `tools-development`
 
 ### **Styling**
-- **Colors:** Modify Tailwind config in `tailwind.config.js`
-- **Animations:** Custom animations defined in `src/index.css`
-- **Components:** Each component uses Tailwind classes for styling
+- **Tailwind:** Utility classes live across components
+- **Custom CSS:** `src/custom.css` for gradients, animations, RTL/mobile adjustments, and print styles
+- **Tailwind config:** Adjust in `tailwind.config.js` as needed
 
 ### **Profile Images**
 Replace `face.png` and `profile.webp` in the `public` folder
+
+### **Printing to PDF**
+Printing uses a hidden iframe and the browser’s native print dialog for best fidelity:
+- Click the printer icon (`PrintButton`) in the UI
+- The print view is language-aware (LTR/RTL) and uses short i18n descriptions for projects
+- Arabic output is centered with proper margins
 
 ---
 
 ## 🌐 Internationalization
 
-The app uses **i18next** for professional internationalization:
-- **Language Detection:** Automatic language detection
-- **Namespace Support:** Organized translations
-- **RTL Support:** Full right-to-left layout for Arabic
+The app uses **i18next** with **react-i18next**:
+- **Dynamic Switching:** Instant English/Arabic toggling with `dir` updates
+- **RTL Support:** Full right-to-left layout and print handling
+- **Print Strings:** Short keys (e.g., `*-desc-short`) for concise print content
 - **Fallback Language:** English as fallback
-- **Dynamic Language Switching:** Instant language changes
 
 ---
 
@@ -129,7 +139,7 @@ The app uses **i18next** for professional internationalization:
 
 - **Mobile-First:** Designed for mobile devices first
 - **Breakpoint System:** Uses Tailwind's responsive utilities
-- **Flexible Layout:** Sidebar collapses on mobile
+- **HTML Parity:** Matches the reference HTML design on mobile and desktop
 - **Touch-Friendly:** Optimized for touch interactions
 
 ---
