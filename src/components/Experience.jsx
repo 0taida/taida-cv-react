@@ -15,7 +15,7 @@ const Experience = () => {
         <p>{t('doing')}</p>
         <ul>
           <li>{t('collaborated-platform')}</li>
-          <li>{t('enhanced-ui')}</li>
+          <li>{t('react-next-features')}</li>
           <li>{t('participated-development')}</li>
         </ul>
       </div>
