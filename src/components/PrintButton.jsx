@@ -106,7 +106,7 @@ const PrintButton = () => {
       html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; }
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       * { box-sizing: border-box; }
-      .page { width: 210mm; min-height: 297mm; background: #ffffff; color: #000; }
+      .page { width: 210mm; height: 297mm; background: #ffffff; color: #000; overflow: hidden; }
       .container {
         width: ${contentWidth};
         margin-left: auto; margin-right: auto;
@@ -134,6 +134,12 @@ const PrintButton = () => {
 
       [dir='rtl'] .skills ul { padding-right: 18pt; padding-left: 0; }
       [dir='rtl'] .experience .job-header, [dir='rtl'] .project-header { direction: rtl; }
+      
+      @media print {
+        html, body { width: 210mm; height: 297mm; overflow: hidden; }
+        .page { page-break-inside: avoid; break-inside: avoid; }
+        .section { page-break-inside: avoid; break-inside: avoid; }
+      }
     `;
 
     const fullName = escapeHTML(t('full-name') || '');
@@ -210,6 +216,30 @@ const PrintButton = () => {
 
     try {
       const html = buildPrintHTML();
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+
+      if (isMobile) {
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) throw new Error('Popup blocked');
+
+        // Inject auto-print script into the HTML to print from the child window on load
+        const autoPrintHtml = html.replace(
+          '</body>',
+          `<script>(function(){
+            function onReady(cb){ if(document.readyState==='complete'||document.readyState==='interactive'){ setTimeout(cb,0); } else { window.addEventListener('load', cb, { once: true }); } }
+            onReady(function(){ setTimeout(function(){ try { window.focus(); window.print(); } catch(e) {} }, 300); });
+            // Do not auto-close; let the user close after printing to avoid mobile browser issues
+          })();</script></body>`
+        );
+
+        printWindow.document.open();
+        printWindow.document.write(autoPrintHtml);
+        printWindow.document.close();
+
+        // Release UI state shortly after opening the print window
+        setTimeout(() => setIsGenerating(false), 500);
+        return;
+      }
 
       const iframe = document.createElement('iframe');
       iframe.setAttribute('title', 'cv-print-frame');
