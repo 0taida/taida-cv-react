@@ -20,13 +20,14 @@ const ContactInfo = ({ contactData }) => {
           {t('contact')}
         </h3>
         <ul>
-          <li className="animate-fade-in-delayed">
+          <li className="animate-fade-in-delayed ">
             <i className="fas fa-envelope"></i>
-            <a 
+            <a
               href={`mailto:${data.email}`}
+              dir="ltr"
               style={{ color: '#00aaff', textDecoration: 'none' }}
             >
-              {data.email}
+              {data.shortEmail}
             </a>
           </li>
           <li className="animate-fade-in-delayed">

@@ -2,6 +2,7 @@
 export const cvData = {
   contact: {
     email: 'taida.dream@gmail.com',
+    shortEmail: 'taida.dream',
     phone: '+967774126583',
     github: 'https://github.com/0taida',
     location: 'location'
@@ -19,12 +20,23 @@ export const cvData = {
   ],
   
   technicalSkills: {
-    frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Vue.js", "Bootstrap", "Tailwind CSS"],
-    backend: ["Node.js", "PHP", "Laravel", "MySQL", "PostgreSQL"],
+    frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Vue.js", "Bootstrap", "Tailwind CSS"],
+    backend: ["Node.js", "PHP", "Laravel", "MySQL", "PostgreSQL", "Prisma"],
     tools: ["Git", "Docker", "Firebase", "GitHub", "Postman", "npm", "Ubuntu", "Huly App"]
   },
   
   projects: [
+    {
+      title: 'maraqi-families',
+      description: 'maraqi-families-desc',
+      link: 'https://maraqi.cloud/',
+      linkIcon: 'fas fa-external-link-alt',
+      techBadges: [
+        { name: 'Next.js', icon: 'fab fa-react' },
+        { name: 'TypeScript', icon: 'fab fa-js' },
+        { name: 'Prisma', icon: 'fas fa-database' }
+      ]
+    },
     {
       title: 'rai-platform',
       description: 'rai-platform-desc',
@@ -44,21 +56,21 @@ export const cvData = {
         { name: 'Prisma', icon: 'fas fa-database' }
       ]
     },
-    {
-      title: 'sms-project',
-      description: 'sms-project-desc',
-      techBadges: [
-        { name: 'React', icon: 'fab fa-react' },
-        { name: 'Express.js', icon: 'fab fa-node-js' }
-      ]
-    },
-    {
-      title: 'docker-explorer',
-      description: 'docker-explorer-desc',
-      techBadges: [
-        { name: 'Remix.js', icon: 'fab fa-react' }
-      ]
-    },
+    // {
+    //   title: 'sms-project',
+    //   description: 'sms-project-desc',
+    //   techBadges: [
+    //     { name: 'React', icon: 'fab fa-react' },
+    //     { name: 'Express.js', icon: 'fab fa-node-js' }
+    //   ]
+    // },
+    // {
+    //   title: 'docker-explorer',
+    //   description: 'docker-explorer-desc',
+    //   techBadges: [
+    //     { name: 'Remix.js', icon: 'fab fa-react' }
+    //   ]
+    // },
     {
       title: 'simple-chat-app',
       description: 'developed-chat-app',
@@ -73,12 +85,12 @@ export const cvData = {
         { name: 'Python', icon: 'fab fa-python' }
       ]
     },
-    {
-      title: 'proxy-project',
-      description: 'proxy-desc',
-      techBadges: [
-        { name: 'Caddy', icon: 'fas fa-server' }
-      ]
-    }
+    // {
+    //   title: 'proxy-project',
+    //   description: 'proxy-desc',
+    //   techBadges: [
+    //     { name: 'Caddy', icon: 'fas fa-server' }
+    //   ]
+    // }
   ]
 }; 

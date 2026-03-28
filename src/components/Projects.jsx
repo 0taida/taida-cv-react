@@ -6,6 +6,17 @@ const Projects = ({ projects }) => {
   // Default projects if not provided
   const defaultProjects = [
     {
+      title: 'maraqi-families',
+      description: 'maraqi-families-desc',
+      link: 'https://maraqi.cloud/',
+      linkIcon: 'fas fa-external-link-alt',
+      techBadges: [
+        { name: 'Next.js', icon: 'fab fa-react' },
+        { name: 'TypeScript', icon: 'fab fa-js' },
+        { name: 'Prisma', icon: 'fas fa-database' }
+      ]
+    },
+    {
       title: 'rai-platform',
       description: 'rai-platform-desc',
       link: 'https://raiplatform.net/',
@@ -24,21 +35,21 @@ const Projects = ({ projects }) => {
         { name: 'Prisma', icon: 'fas fa-database' }
       ]
     },
-    {
-      title: 'sms-project',
-      description: 'sms-project-desc',
-      techBadges: [
-        { name: 'React', icon: 'fab fa-react' },
-        { name: 'Express.js', icon: 'fab fa-node-js' }
-      ]
-    },
-    {
-      title: 'docker-explorer',
-      description: 'docker-explorer-desc',
-      techBadges: [
-        { name: 'Remix.js', icon: 'fab fa-react' }
-      ]
-    },
+    // {
+    //   title: 'sms-project',
+    //   description: 'sms-project-desc',
+    //   techBadges: [
+    //     { name: 'React', icon: 'fab fa-react' },
+    //     { name: 'Express.js', icon: 'fab fa-node-js' }
+    //   ]
+    // },
+    // {
+    //   title: 'docker-explorer',
+    //   description: 'docker-explorer-desc',
+    //   techBadges: [
+    //     { name: 'Remix.js', icon: 'fab fa-react' }
+    //   ]
+    // },
     {
       title: 'simple-chat-app',
       description: 'developed-chat-app',
@@ -53,13 +64,13 @@ const Projects = ({ projects }) => {
         { name: 'Python', icon: 'fab fa-python' }
       ]
     },
-    {
-      title: 'proxy-project',
-      description: 'proxy-desc',
-      techBadges: [
-        { name: 'Caddy', icon: 'fas fa-server' }
-      ]
-    }
+    // {
+    //   title: 'proxy-project',
+    //   description: 'proxy-desc',
+    //   techBadges: [
+    //     { name: 'Caddy', icon: 'fas fa-server' }
+    //   ]
+    // }
   ];
 
   const projectsList = projects || defaultProjects;
